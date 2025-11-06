@@ -34,7 +34,7 @@
 .loading-image {
     width: 70px; /* حجم العرض */
     height: 70px; /* حجم العرض */
-    animation: spin 2s linear infinite; /* تطبيق حركة الدوران عليها */
+    animation: spin 1s linear infinite; /* تطبيق حركة الدوران عليها */
 }
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -471,7 +471,7 @@
         animateDiamond();
         
         // بدء دورة الوميض السريعة (50 مللي ثانية)
-        shimmerInterval = setInterval(animateDiamond, 50); 
+        shimmerInterval = setInterval(animateDiamond, 100); 
     }
 
     // ********** كود شاشة التحميل (معدل لإيقاف الوميض) **********
