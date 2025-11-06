@@ -30,10 +30,25 @@
     transition: opacity 0.6s ease-out; /* إضافة انتقال سلس للاختفاء */
 }
 
-/* الكود الجديد لصورة الـ SVG/Canvas */
+/* Preloader Styles */
+.preloader-overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111111;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease-out;
+}
+
+/* الكود الجديد لصورة الـ SVG */
 .loading-image {
-    width: 70px; /* حجم العرض */
-    height: 70px; /* حجم العرض */
+    width: 70px; /* يمكنك تعديل حجم الصورة */
+    height: 70px;
     animation: spin 2s linear infinite; /* تطبيق حركة الدوران عليها */
 }
 @keyframes spin {
@@ -212,7 +227,7 @@
 <body class="p-4 md:p-12 color-dark-bg rtl-layout">
 
 <div id="preloader" class="preloader-overlay">
-    <canvas id="diamond-canvas" class="loading-image"></canvas>
+    <img src="diamond loading gold 2.svg" alt="Loading Diamond" class="loading-image">
 </div>
     
     <div class="lang-switcher color-light-text font-medium">
@@ -400,60 +415,7 @@
         updateTextDirection(lang);
     }
 
-    // ********** منطق الوميض الجديد باستخدام Canvas (Canvas Shimmering Logic) **********
-    let shimmerInterval = null;
-    let lastFrame = -1; // To track the last displayed frame index
-    const VIEWBOX_SIZE = 86.31;
-    const DIAMOND_COLOR = '#B89A6A';
-
-    // SVG path data for each frame (مضمّنة لتجنب مشاكل مسارات الملفات)
-    const SVG_PATHS = [
-        // Frame 1 - diamond 1-1.svg
-        "M86,42.9A42.38,42.38,0,0,0,73.45,13l.08-.48-.47.09A42.35,42.35,0,0,0,59.88,3.74,43.08,43.08,0,0,0,43.43.38L43.16,0l-.28.38a41.61,41.61,0,0,0-16,3.22,42.2,42.2,0,0,0-13.68,9.06l-.49-.08.08.48A42.42,42.42,0,0,0,.37,42.89L0,43.17l.37.26A42.72,42.72,0,0,0,3.78,60a42.18,42.18,0,0,0,9,13.29l-.08.48.47-.09a43.13,43.13,0,0,0,13,8.79,38.56,38.56,0,0,0,7.69,2.49H34a39.7,39.7,0,0,0,8.9,1l.25.35L43.4,86a39.9,39.9,0,0,0,8.93-1,39.27,39.27,0,0,0,7.36-2.3,41.51,41.51,0,0,0,13.67-9.18l.44.07-.07-.44A42.59,42.59,0,0,0,86,43.41l.35-.26ZM73.26,14.19a41.92,41.92,0,0,1,8.27,12.36l-11,4.66ZM59.93,4.86a41.32,41.32,0,0,1,11.91,7.93L55.05,15.72ZM43.45,63.67,29,57.93l-.08-.26L22.8,43.31l5.91-14.68,14.16-6.12.12.07,14.46,5.74,0,.14,6.26,14.23-.1.2L58,57.4Zm14.1-5-3.38,10.8-9.59-5.21ZM27.76,57.49,17.14,53.91l5.06-9.48Zm4.67-40.75,9.35,5.17L29.14,27.36Zm26.29,12L69.17,32.3l-4.83,9.27Zm5.6,15.11L69.59,54,59.2,57ZM43.15,1.7,53.47,16.18,43,21.38l-.07,0L32.87,15.85ZM31.49,16.42,28,27.84,16.61,31.1,13.89,13.77Zm-27.08,11,10.8,4.4L1.38,42.14A41.44,41.44,0,0,1,4.41,27.46Zm-3,16.69,14.06,10-10.93,5A41.58,41.58,0,0,1,1.38,44.15ZM13,72.05A40.86,40.86,0,0,1,4.9,60l10.89-5Zm13.15,9.29a42.41,42.41,0,0,1-11.74-7.89l16.85-3Zm3.24-22.2,12.87,5.12L32.4,69.14ZM43.16,84.62,32.83,70l20.89.33Zm9-.65a38.37,38.37,0,0,1-8,1L54.34,71.19l4.51,10.72A38.19,38.19,0,0,1,52.12,84Zm7.65-2.44L55.26,70.81l16.86,2.47A40.75,40.75,0,0,1,59.77,81.53Zm13.77-9.68L70.93,55.06l10.74,4.38A41,41,0,0,1,73.54,71.85ZM82,58.52,71.31,54.14,85,44.15A41.47,41.47,0,0,1,82,58.52ZM70.89,32.13l11-4.67a41.44,41.44,0,0,1,3,14.72Z",
-
-        // Frame 2 - diamond 2-1.svg
-        "M86,42.9A42.42,42.42,0,0,0,73.46,13l.07-.48-.47.09A42.35,42.35,0,0,0,59.88,3.74,43.08,43.08,0,0,0,43.43.38L43.16,0l-.27.38a41.61,41.61,0,0,0-16,3.22A42.2,42.2,0,0,0,13.2,12.66l-.49-.08.08.48A42.42,42.42,0,0,0,.38,42.89L0,43.17l.38.26a42.34,42.34,0,0,0,12.4,29.84l-.08.48.48-.09a43.13,43.13,0,0,0,13,8.79,38.56,38.56,0,0,0,7.69,2.49H34a39.79,39.79,0,0,0,8.91,1l.25.35.26-.35a40,40,0,0,0,8.93-1,39.27,39.27,0,0,0,7.36-2.3,41.62,41.62,0,0,0,13.67-9.18l.44.07-.07-.44A42.63,42.63,0,0,0,86,43.41l.35-.26ZM73.27,14.19a41.7,41.7,0,0,1,8.26,12.36l-11,4.66ZM59.94,4.86a41.32,41.32,0,0,1,11.9,7.93L55.05,15.72ZM43.45,63.67,29,57.93l-.08-.26L22.8,43.31l5.91-14.68,14.16-6.12.12.07,14.46,5.74,0,.14,6.26,14.23-.1.2L58,57.4Zm14.1-5-3.38,10.8-9.59-5.21ZM27.76,57.49,17.14,53.91l5.06-9.48Zm4.67-40.75,9.35,5.17L29.14,27.36Zm26.29,12L69.17,32.3l-4.83,9.27Zm5.6,15.11L69.59,54,59.2,57ZM43.15,1.7,53.47,16.18,43,21.38l-.07,0L32.87,15.85ZM31.49,16.42,28,27.84,16.61,31.1,13.89,13.77Zm-27.07,11,10.8,4.4L1.38,42.14A41.44,41.44,0,0,1,4.41,27.46ZM1.38,44.15l14.06,10-10.93,5A41.58,41.58,0,0,1,1.38,44.15ZM13,72.05A40.86,40.86,0,0,1,4.9,60l10.89-5Zm13.15,9.29a42.41,42.41,0,0,1-11.74-7.89l16.85-3Zm3.24-22.2,12.87,5.12L32.4,69.14ZM43.16,84.62,32.83,70l20.89.33ZM52.12,84a38.37,38.37,0,0,1-8,1L54.34,71.19l4.51,10.72A38.19,38.19,0,0,1,52.12,84Zm7.65-2.44L55.26,70.81l16.86,2.47A40.75,40.75,0,0,1,59.77,81.53ZM73.54,71.85A41,41,0,0,1,70.93,55.06l10.74,4.38ZM82,58.52,71.31,54.14,85,44.15A41.47,41.47,0,0,1,82,58.52ZM70.89,32.13l11-4.67a41.44,41.44,0,0,1,3,14.72Z",
-    ];
-
-    function animateDiamond() {
-        const canvas = document.getElementById('diamond-canvas');
-        if (!canvas) return;
-        
-        const ctx = canvas.getContext('2d');
-        const dpr = window.devicePixelRatio || 1;
-        
-        // Set canvas size for high-DPI
-        const size = canvas.clientWidth * dpr;
-        canvas.width = size;
-        canvas.height = size;
-
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Scale context to fit the SVG paths (86.31x86.31)
-        const scale = size / VIEWBOX_SIZE;
-        ctx.scale(scale, scale);
-
-        // Calculate next frame index
-        lastFrame = (lastFrame + 1) % SVG_PATHS.length;
-
-        // Draw the path
-        const pathData = SVG_PATHS[lastFrame];
-        const path = new Path2D(pathData);
-
-        ctx.fillStyle = DIAMOND_COLOR;
-        ctx.fill(path);
-    }
-    
-    function startCanvasShimmer() {
-        if (shimmerInterval === null) {
-            // سرعة تقليب الإطارات (50ms)
-            shimmerInterval = setInterval(animateDiamond, 50); 
-        }
-    }
-
-
-    // ********************* منطق إخفاء شاشة التحميل (Preloader Logic) *********************
+    // ********** كود شاشة التحميل (تم وضعه في النطاق العام للعمل بشكل صحيح) **********
     function hidePreloader() {
         const preloader = document.getElementById('preloader');
         if (preloader) {
@@ -462,9 +424,6 @@
             // إزالتها من العرض بعد اكتمال التحول
             setTimeout(() => {
                 preloader.style.display = 'none';
-                // ** تم نقل إيقاف الوميض إلى هنا ليتم بعد اكتمال الـ Fade Out (600ms) **
-                clearInterval(shimmerInterval);
-                shimmerInterval = null;
             }, 600); // 600ms تتطابق مع transition في CSS
         }
     }
@@ -476,9 +435,6 @@
 
     // Initialize: Store Arabic content and set up initial state
     document.addEventListener('DOMContentLoaded', () => {
-        // ابدأ الوميض فوراً بمجرد تحميل هيكل الصفحة
-        startCanvasShimmer(); // Call the new Canvas function
-        
         // Store Arabic content from HTML into a data attribute before the first switch
         document.querySelectorAll('[data-key]').forEach(el => {
             // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
@@ -493,7 +449,7 @@
              el.setAttribute('data-ar-content', el.innerHTML);
         });
         
-        // Ensure initial direction and styling are correct for 'ar'\
+        // Ensure initial direction and styling are correct for 'ar'
         updateTextDirection('ar');
     });
 </script>
