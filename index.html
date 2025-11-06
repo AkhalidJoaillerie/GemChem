@@ -322,9 +322,10 @@
             // Store Arabic content from HTML into a data attribute before the first switch
             document.querySelectorAll('[data-key]').forEach(el => {
                 // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
-                if (el.innerHTML.trim() && el.id !== 'header-formula') {
-                    el.setAttribute('data-ar-content', el.innerHTML);
-                }
+                if (el.innerHTML.trim()) {
+    el.setAttribute('data-ar-content', el.innerHTML);
+}
+
             });
             // Also explicitly set the formula divs to store their complex Arabic content 
             // since they contain LTR formulas wrapped in AR context.
