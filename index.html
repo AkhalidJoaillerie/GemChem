@@ -10,7 +10,7 @@
     
     <!-- Use Inter (Sans) for body, Cormorant SC (Serif) for headings, and IBM Plex Serif for formulas -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&family=Cormorant+SC:wght@400;700&family=Castoro&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&family=Cormorant+SC:wght@400;700&family=Castoro&family=Cardo:wght@400;700&display=swap');
 
         
         /* Define luxury colors */
@@ -31,6 +31,8 @@
             text-align: right !important;
         }
         .ltr-layout {
+            font-family: 'cardo', 'IBM Plex Sans Arabic', sans-serif; 
+            font-weight: normal !important;
             direction: ltr !important;
             text-align: left !important;
         }
@@ -60,6 +62,7 @@
 
         /* Styling for the table rows to apply the dark divider line and EXTREMELY generous padding */
         .table-row-item {
+            font-family: 'Castoro','IBM Plex Sans Arabic', serif; 
             border-bottom: 1px solid #2e2e2e !important; 
             padding-top: 2.5rem !important; 
             padding-bottom: 2.5rem !important; 
@@ -112,7 +115,7 @@
             /* Styling the mobile labels with the gold accent */
             .cell-gemstone::before, .cell-formula::before, .cell-group::before, .cell-notes::before { 
                 font-weight: 700 !important; 
-                text-transform: uppercase !important;
+                text-transform: capitalize !important;
                 font-size: 0.75rem !important;
                 display: block !important;
                 margin-bottom: 0.25rem !important;
@@ -124,7 +127,6 @@
                 padding-top: 0 !important;
                 font-size: 1.4rem !important;
                 font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif !important; 
-                font-weight: 700 !important;
                 letter-spacing: 0.1em !important;
             }
 
@@ -150,7 +152,7 @@
         <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title">نظرة عامة على كيمياء الأحجار الكريمة</h1>
         
         <!-- Header Row (Hidden on small mobile) -->
-        <div class="header-row table-row-item text-sm font-bold uppercase color-gold-accent tracking-widest">
+        <div class="header-row table-row-item text-sm  capitalize color-gold-accent tracking-widest">
             <div id="header-gemstone" class="pt-2" data-key="gemstone">الحجر الكريم</div>
             <!-- REMOVED text-center so it aligns with the rest of the column -->
             <div id="header-formula" class="pt-2" data-key="formula">الصيغة الكيميائية</div>
@@ -161,57 +163,57 @@
         <div class="divide-y divide-gray-200">
             <!-- Diamond Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="diamond_name">الماس</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="diamond_name">الماس</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note">C (كربون نقي)</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="diamond_group">عناصر أصلية</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="diamond_group">عناصر أصلية</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
             </div>
 
             <!-- Ruby Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="ruby_name">الزفير (الياقوت الأحمر)</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="ruby_name">الزفير (الياقوت الأحمر)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="ruby_group">كُرُندُم</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="ruby_group">كُرُندُم</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
             </div>
 
             <!-- Sapphire Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="sapphire_name">الياقوت الأزرق (السفير)</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="sapphire_name">الياقوت الأزرق (السفير)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="sapphire_group">كُرُندُم</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="sapphire_group">كُرُندُم</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
             </div>
 
             <!-- Emerald Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="emerald_name">الزمرد</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="emerald_name">الزمرد</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Be₃Al₂(SiO₃)₆</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="emerald_group">بَرِيل</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="emerald_group">بَرِيل</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
             </div>
             
             <!-- Amethyst Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="amethyst_name">الأميثيست (الجمشت)</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="amethyst_name">الأميثيست (الجمشت)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">SiO₂</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="amethyst_group">كُوارتز</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="amethyst_group">كُوارتز</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
             </div>
 
             <!-- Topaz Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="topaz_name">التوباز</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="topaz_name">التوباز</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂SiO₄(F, OH)₂</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="topaz_group">سيلكات</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="topaz_group">سيلكات</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
             </div>
 
             <!-- Peridot Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="peridot_name">الزبرجد</div>
+                <div class="cell-gemstone  color-light-text text-lg" data-key="peridot_name">الزبرجد</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">(Mg, Fe)₂SiO₄</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="peridot_group">أوليفين</div>
+                <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="peridot_group">أوليفين</div>
                 <div class="cell-notes color-light-text text-sm font-light" data-key="peridot_notes">سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.</div>
             </div>
 
