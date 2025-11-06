@@ -25,11 +25,11 @@
 
     /* Styling for the main header (Serif) */
     .luxury-heading {
-        font-family: 'Playfair Display', 'IBM Plex Sans Arabic', serif; 
+        font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif; 
         letter-spacing: 0.15em; 
         font-weight: 400; 
         font-size: 2.8rem; 
-        text-transform: uppercase;
+        text-transform: capitalize;
     }
     
     /* Custom style for chemical formulas: LTR must be maintained, but alignment must be inherited */
