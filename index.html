@@ -1,92 +1,78 @@
 <!DOCTYPE html>
-<!-- FIX: Removed hardcoded centering on formula column and set it to inherit alignment, 
-    while maintaining LTR direction for the chemical text itself. All alignment/direction 
-    styles now use !important for highest specificity. -->
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-key="title"> Gemstone Chemistry Overview </title>
-    <link rel="stylesheet" href="style.css">
-
-</head>
-<body class="p-4 md:p-12 color-dark-bg rtl-layout">
+    <title data-key="title" lang="ar">نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر</title>
     
-    <!-- Language Switcher - Absolute Positioning (Centered) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="p-4 md:p-12 color-dark-bg rtl-layout" lang="ar">
+    
     <div class="lang-switcher color-light-text font-medium">
-        <span id="lang-ar" class="color-gold-accent cursor-pointer border-b border-solid border-[#B89A6A]" onclick="switchLanguage('ar')">AR</span> 
+        <span id="lang-ar" class="active-lang cursor-pointer" onclick="switchLanguage('ar')" lang="en">AR</span> 
         <span class="mx-1 text-gray-400">|</span> 
-        <span id="lang-en" class="cursor-pointer" onclick="switchLanguage('en')">EN</span>
+        <span id="lang-en" class="cursor-pointer" onclick="switchLanguage('en')" lang="en">EN</span>
     </div>
 
     <div class="table-container mx-auto">
-        <!-- Main Heading - Serif Font -->
-        <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title">نظرة عامة على كيمياء الأحجار الكريمة</h1>
+        <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title" lang="ar">نظرة عامة على كيمياء الأحجار الكريمة</h1>
         
-        <!-- Header Row (Hidden on small mobile) -->
         <div class="header-row table-row-item text-sm font-bold uppercase color-gold-accent tracking-widest">
-            <div id="header-gemstone" class="pt-2" data-key="gemstone">الحجر الكريم</div>
-            <!-- REMOVED text-center so it aligns with the rest of the column -->
-            <div id="header-formula" class="pt-2" data-key="formula">الصيغة الكيميائية</div>
-            <div id="header-group" class="pt-2" data-key="group">المجموعة المعدنية</div>
-            <div id="header-notes" class="pt-2" data-key="notes">ملاحظات على التركيب الكيميائي</div>
+            <div id="header-gemstone" class="pt-2" data-key="gemstone" lang="ar">الحجر الكريم</div>
+            <div id="header-formula" class="pt-2" data-key="formula" lang="ar">الصيغة الكيميائية</div>
+            <div id="header-group" class="pt-2" data-key="group" lang="ar">المجموعة المعدنية</div>
+            <div id="header-notes" class="pt-2" data-key="notes" lang="ar">ملاحظات على التركيب الكيميائي</div>
         </div>
         
         <div class="divide-y divide-gray-200">
-            <!-- Diamond Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="diamond_name">الماس</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note">C (كربون نقي)</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="diamond_group">عناصر أصلية</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="diamond_name" lang="ar">الماس</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note" lang="ar">C (كربون نقي)</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="diamond_group" lang="ar">عناصر أصلية</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes" lang="ar">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
             </div>
 
-            <!-- Ruby Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="ruby_name">الزفير (الياقوت الأحمر)</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="ruby_group">كُرُندُم</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="ruby_name" lang="ar">الزفير (الياقوت الأحمر)</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">Al₂O₃</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="ruby_group" lang="ar">كُرُندُم</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes" lang="ar">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
             </div>
 
-            <!-- Sapphire Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="sapphire_name">الياقوت الأزرق (السفير)</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="sapphire_group">كُرُندُم</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="sapphire_name" lang="ar">الياقوت الأزرق (السفير)</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">Al₂O₃</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="sapphire_group" lang="ar">كُرُندُم</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes" lang="ar">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
             </div>
 
-            <!-- Emerald Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="emerald_name">الزمرد</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Be₃Al₂(SiO₃)₆</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="emerald_group">بَرِيل</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="emerald_name" lang="ar">الزمرد</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">Be₃Al₂(SiO₃)₆</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="emerald_group" lang="ar">بَرِيل</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes" lang="ar">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
             </div>
             
-            <!-- Amethyst Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="amethyst_name">الأميثيست (الجمشت)</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">SiO₂</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="amethyst_group">كُوارتز</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="amethyst_name" lang="ar">الأميثيست (الجمشت)</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">SiO₂</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="amethyst_group" lang="ar">كُوارتز</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes" lang="ar">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
             </div>
 
-            <!-- Topaz Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="topaz_name">التوباز</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂SiO₄(F, OH)₂</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="topaz_group">سيلكات</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="topaz_name" lang="ar">التوباز</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">Al₂SiO₄(F, OH)₂</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="topaz_group" lang="ar">سيلكات</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes" lang="ar">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
             </div>
 
-            <!-- Peridot Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
-                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="peridot_name">الزبرجد</div>
-                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">(Mg, Fe)₂SiO₄</div></div>
-                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="peridot_group">أوليفين</div>
-                <div class="cell-notes color-light-text text-sm font-light" data-key="peridot_notes">سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.</div>
+                <div class="cell-gemstone font-bold color-light-text text-lg" data-key="peridot_name" lang="ar">الزبرجد</div>
+                <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" lang="en">(Mg, Fe)₂SiO₄</div></div>
+                <div class="cell-group color-light-text text-sm font-light uppercase tracking-wider" data-key="peridot_group" lang="ar">أوليفين</div>
+                <div class="cell-notes color-light-text text-sm font-light" data-key="peridot_notes" lang="ar">سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.</div>
             </div>
 
         </div>
@@ -95,7 +81,33 @@
     <script>
         const LANGUAGE_MAP = {
             'ar': {
-                // Since this object is empty, we rely on data-ar-content
+                'title': 'نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر',
+                'gemstone': 'الحجر الكريم',
+                'formula': 'الصيغة الكيميائية',
+                'group': 'المجموعة المعدنية',
+                'notes': 'ملاحظات على التركيب الكيميائي',
+                'diamond_name': 'الماس',
+                'diamond_formula_note': 'C (كربون نقي)',
+                'diamond_group': 'عناصر أصلية',
+                'diamond_notes': 'يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.',
+                'ruby_name': 'الزفير (الياقوت الأحمر)',
+                'ruby_group': 'كُرُندُم',
+                'ruby_notes': 'أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr³⁺) التي تحل محل الألومنيوم (Al³⁺) في الشبكة.',
+                'sapphire_name': 'الياقوت الأزرق (السفير)',
+                'sapphire_group': 'كُرُندُم',
+                'sapphire_notes': 'متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.',
+                'emerald_name': 'الزمرد',
+                'emerald_group': 'بَرِيل',
+                'emerald_notes': 'سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.',
+                'amethyst_name': 'الأميثيست (الجمشت)',
+                'amethyst_group': 'كُوارتز',
+                'amethyst_notes': 'نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe³⁺) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.',
+                'topaz_name': 'التوباز',
+                'topaz_group': 'سيلكات',
+                'topaz_notes': 'سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.',
+                'peridot_name': 'الزبرجد',
+                'peridot_group': 'أوليفين',
+                'peridot_notes': 'سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.',
             },
             'en': {
                 'title': 'Gemstone Chemistry Overview',
@@ -141,75 +153,63 @@
             const html = document.documentElement;
             const body = document.body;
 
-            // CRITICAL FIX: Explicitly control directionality on the body element using utility classes
             html.setAttribute('lang', lang);
             html.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
             
             body.classList.toggle('rtl-layout', isRTL);
             body.classList.toggle('ltr-layout', !isRTL);
             
-            // Formula header alignment is now controlled by CSS 'inherit' and the body's direction.
+            body.setAttribute('lang', lang);
 
-            // Update switcher styles
-            document.getElementById('lang-ar').classList.toggle('color-gold-accent', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-b', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-[#B89A6A]', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-solid', isRTL);
+            document.getElementById('main-title').setAttribute('lang', lang);
 
-
-            document.getElementById('lang-en').classList.toggle('color-gold-accent', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-b', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-[#B89A6A]', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-solid', !isRTL);
-
+            // Update switcher styles for active language
+            document.getElementById('lang-ar').classList.toggle('active-lang', isRTL);
+            document.getElementById('lang-en').classList.toggle('active-lang', !isRTL);
         }
 
         function switchLanguage(lang) {
-            if (lang === 'ar') {
-                // To switch to Arabic, we retrieve the content from the data-ar-content attribute
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
+            const content = LANGUAGE_MAP[lang];
+            const isRTL = lang === 'ar';
+
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (content[key]) {
+                    el.setAttribute('lang', lang); 
+                    
                     if (el.tagName === 'TITLE') {
-                        const arText = 'نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر';
-                        el.textContent = arText;
-                    } else {
-                        const arText = el.getAttribute('data-ar-content');
-                        if (arText) el.innerHTML = arText;
+                        const suffix = lang === 'en' ? ' | Bvlgari Luxury Style' : ' | بأسلوب بولغاري الفاخر';
+                        el.textContent = content[key] + suffix;
+                    } else if (el.parentElement.classList.contains('cell-formula')) {
+                        if (key.includes('_formula_note')) {
+                             el.innerHTML = content[key];
+                        } 
+                        el.setAttribute('lang', 'en'); 
+                        el.innerHTML = content[key]; 
                     }
-                });
-            } else if (lang === 'en') {
-                // To switch to English, we use the content from the LANGUAGE_MAP
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (LANGUAGE_MAP['en'][key]) {
-                        if (el.tagName === 'TITLE') {
-                            el.textContent = LANGUAGE_MAP['en'][key] + ' | Bvlgari Luxury Style';
-                        } else {
-                            el.innerHTML = LANGUAGE_MAP['en'][key];
-                        }
+                    else {
+                        el.innerHTML = content[key];
                     }
-                });
-            }
+                }
+            });
+            
+            document.querySelectorAll('.cell-formula > div:not([data-key*="formula_note"])').forEach(el => {
+                el.setAttribute('lang', 'en');
+            });
+            
             updateTextDirection(lang);
         }
 
-        // Initialize: Store Arabic content and set up initial state
         document.addEventListener('DOMContentLoaded', () => {
-            // Store Arabic content from HTML into a data attribute before the first switch
-            document.querySelectorAll('[data-key]').forEach(el => {
-                // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
-                if (el.innerHTML.trim() && el.id !== 'header-formula') {
-                    el.setAttribute('data-ar-content', el.innerHTML);
-                }
-            });
-            // Also explicitly set the formula divs to store their complex Arabic content 
-            // since they contain LTR formulas wrapped in AR context.
-            document.querySelectorAll('.table-row-item .cell-formula > div').forEach(el => {
-                 el.setAttribute('data-ar-content', el.innerHTML);
+             
+            document.querySelectorAll('.cell-formula > div:not([data-key*="formula_note"])').forEach(el => {
+                el.setAttribute('lang', 'en');
             });
             
-            // Ensure initial direction and styling are correct for 'ar'
+            // Set initial language to Arabic (AR) and apply active class
             updateTextDirection('ar');
+            document.getElementById('lang-ar').classList.add('active-lang');
+            document.getElementById('lang-en').classList.remove('active-lang'); // Ensure EN is not active initially
         });
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
