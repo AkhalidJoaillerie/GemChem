@@ -402,7 +402,7 @@
 
     // ********** منطق الوميض الجديد (Shimmering Logic) **********
     let shimmerInterval = null;
-    let lastImageIndex = -1;
+    let currentImageIndex = 0; // تم التغيير من lastImageIndex إلى currentImageIndex
     // قائمة بأسماء ملفات الـ SVG التي تم تأكيدها
     const DIAMOND_IMAGES = [
         'diamond 1.svg',
@@ -416,15 +416,11 @@
         const diamondImage = document.getElementById('shimmer-diamond');
         if (!diamondImage) return;
 
-        let newIndex;
-        // توليد رقم عشوائي جديد يختلف عن الرقم السابق (لمنع التكرار)
-        do {
-            newIndex = Math.floor(Math.random() * DIAMOND_IMAGES.length);
-        } while (newIndex === lastImageIndex);
+        // تبديل مصدر الصورة بشكل تسلسلي (أكثر موثوقية للاختبار)
+        diamondImage.src = DIAMOND_IMAGES[currentImageIndex];
 
-        // تبديل مصدر الصورة (الـ src)
-        diamondImage.src = DIAMOND_IMAGES[newIndex];
-        lastImageIndex = newIndex;
+        // الانتقال إلى الصورة التالية
+        currentImageIndex = (currentImageIndex + 1) % DIAMOND_IMAGES.length;
     }
 
     function startShimmer() {
