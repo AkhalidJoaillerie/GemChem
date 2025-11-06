@@ -104,26 +104,29 @@
         
         /* New Styling for the header logo image */
         .header-logo {
-            width: 300px; /* Default desktop size */
+            width: 300px; /* Default desktop size (for the mobile image when used in a desktop context, though usually overridden) */
             height: auto;
         }
-/* ********** NEW STYLES FOR DESKTOP IMAGE (EMERALD) ********** */
-/* Container to define 500px width and apply cropping */
-.header-image-crop {
-    width: 900px !important; /* العرض المطلوب 500 بكسل */
-    height: 300px; /* تحديد ارتفاع للحاوية لإنشاء مساحة الاقتصاص (لتحقيق الاقتصاص 20% تقريباً) */
-    overflow: hidden !important; /* إخفاء الأجزاء الزائدة (لتحقيق الاقتصاص) */
-    margin-left: auto; /* لتوسيط الحاوية */
-    margin-right: auto; /* لتوسيط الحاوية */
-    display: block; /* لضمان التوسيط */
-}
 
-/* Image inside the container */
-.header-logo-cropped {
-    width: 100%; /* اجعل الصورة تملأ عرض الحاوية (500 بكسل) */
-    height: 100%; /* اجعل الصورة تملأ ارتفاع الحاوية (300 بكسل) */
-    object-fit: cover; /* لضمان تغطية الصورة للحاوية مع الاقتصاص من الأعلى والأسفل */
-}
+        /* ********** NEW STYLES FOR DESKTOP IMAGE (EMERALD) ********** */
+        /* Container to define 900px width and apply cropping */
+        .header-image-crop {
+            width: 900px !important; /* العرض المطلوب 900 بكسل */
+            height: 300px; /* لتحديد عمق الاقتصاص */
+            overflow: hidden !important; 
+            margin-left: auto; 
+            margin-right: auto; 
+            display: block; 
+        }
+
+        /* Image inside the container */
+        .header-logo-cropped {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        /* *************************************************************** */
+
 
         /* Responsive grid adjustments */
         @media (max-width: 768px) {
@@ -166,16 +169,18 @@
             .header-logo {
                 width: 245px; /* Smaller size for mobile */
             }
+            
+            /* أضف هذا السطر لإخفاء حاوية الاقتصاص في شاشات الجوال */
+            .header-image-crop {
+                display: none !important; 
+            }
+
 
             .lang-switcher {
                 top: 1rem !important;
                 left: 50% !important; 
                 transform: translateX(-50%) !important;
             }
-            /* إضافة هذا الكود لإخفاء حاوية الاقتصاص في شاشات الجوال */
-    .header-image-crop {
-        display: none !important; 
-    }
         }
     </style>
 </head>
@@ -187,14 +192,16 @@
         <span id="lang-en" class="cursor-pointer" onclick="switchLanguage('en')">EN</span>
     </div>
 
-<div class="table-container mx-auto">
+    <div class="table-container mx-auto">
         <img src="Gems - Gems 2.png" 
              alt="Mobile Gemstone Header Image" 
              class="header-logo mx-auto block mb-6 md:hidden"> 
 
-        <img src="Emerald Gem.png" 
-             alt="Desktop Gemstone Header Image" 
-             class="header-logo mx-auto hidden md:block mb-6">
+        <div class="header-image-crop hidden md:block mb-6">
+            <img src="Emerald Gem.png" 
+                 alt="Desktop Gemstone Header Image" 
+                 class="header-logo-cropped">
+        </div>
              
         <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title">نظرة عامة على كيمياء الأحجار الكريمة</h1>
         
@@ -260,7 +267,7 @@
 </div> 
 
     <footer class="color-gold-accent text-center pt-8 pb-4 md:hidden">
-        <img src="Sign.png" alt="Gemstone Overview Logo" class="footer-logo inline-block" style="width: 200px; height: auto; margin-bottom: 40px;">
+        <img src="full-logo-full-black-edited-squared-01.svg" alt="Gemstone Overview Logo" class="footer-logo inline-block" style="width: 150px; height: auto;">
         </footer>
     
     <script>
