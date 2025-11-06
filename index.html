@@ -30,7 +30,7 @@
     transition: opacity 0.6s ease-out; /* إضافة انتقال سلس للاختفاء */
 }
 
-/* الكود الجديد لصورة الـ SVG */
+/* الكود الجديد لصورة الـ SVG (يدعم الدوران) */
 .loading-image {
     width: 70px; /* يمكنك تعديل حجم الصورة */
     height: 70px;
@@ -402,7 +402,7 @@
 
     // ********** منطق الوميض الجديد (Shimmering Logic) **********
     let shimmerInterval = null;
-    let currentImageIndex = 0; // تم التغيير من lastImageIndex إلى currentImageIndex
+    let lastImageIndex = -1; // To track the last displayed image index
     // قائمة بأسماء ملفات الـ SVG التي تم تأكيدها
     const DIAMOND_IMAGES = [
         'diamond 1.svg',
@@ -416,11 +416,17 @@
         const diamondImage = document.getElementById('shimmer-diamond');
         if (!diamondImage) return;
 
-        // تبديل مصدر الصورة بشكل تسلسلي (أكثر موثوقية للاختبار)
-        diamondImage.src = DIAMOND_IMAGES[currentImageIndex];
+        let newIndex;
+        // توليد رقم عشوائي جديد يختلف عن الرقم السابق (لضمان عدم التكرار مباشرة)
+        do {
+            newIndex = Math.floor(Math.random() * DIAMOND_IMAGES.length);
+        } while (newIndex === lastImageIndex);
 
-        // الانتقال إلى الصورة التالية
-        currentImageIndex = (currentImageIndex + 1) % DIAMOND_IMAGES.length;
+        // تبديل مصدر الصورة (الـ src)
+        diamondImage.src = DIAMOND_IMAGES[newIndex];
+        
+        // تحديث الفهرس الأخير
+        lastImageIndex = newIndex;
     }
 
     function startShimmer() {
