@@ -1,18 +1,22 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Cormorant+SC:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&display=swap');
 
-/* Define luxury colors */
+/* Define luxury colors (UNCHANGED) */
 .color-dark-bg { background-color: #111111 !important; } 
 .color-light-text { color: #ffffff !important; } 
 .color-gold-accent { color: #B89A6A !important; } 
 
 body {
-    font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif !important;
+    font-family: 'Inter', sans-serif !important;
     background-color: #111111 !important;
     color: #ffffff !important;
 }
 
-/* Directional Utility Classes */
+body[lang="ar"] {
+    font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif !important;
+}
+
+/* Directional Utility Classes - CRITICAL: ADDED !important (UNCHANGED) */
 .rtl-layout {
     direction: rtl !important;
     text-align: right !important;
@@ -22,22 +26,21 @@ body {
     text-align: left !important;
 }
 
-/* Luxury heading */
+/* Styling for the main header (Serif default) */
 .luxury-heading {
-    font-family: 'Cormorant SC', serif;
-    letter-spacing: 0.15em;
-    font-weight: 400;
-    font-size: 2.8rem;
-    text-transform: capitalize;
+    font-family: 'Cormorant SC', serif; 
+    letter-spacing: 0.15em; 
+    font-weight: 400; 
+    font-size: 2.8rem; 
+    text-transform: uppercase;
 }
 
-/* Luxury heading Arabic override */
-.luxury-heading:lang(ar) {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    text-transform: capitalize;
+.luxury-heading[lang="ar"] {
+    font-family: 'IBM Plex Sans Arabic', serif; 
+    font-weight: 700; 
 }
 
-/* Chemical formulas */
+/* Custom style for chemical formulas: LTR must be maintained, but alignment must be inherited (UNCHANGED) */
 .formula-text {
     font-family: 'IBM Plex Serif', serif; 
     font-weight: 700; 
@@ -48,7 +51,7 @@ body {
     direction: ltr !important; 
 }
 
-/* Table row styling */
+/* Styling for the table rows to apply the dark divider line and EXTREMELY generous padding (UNCHANGED) */
 .table-row-item {
     border-bottom: 1px solid #2e2e2e !important; 
     padding-top: 2.5rem !important; 
@@ -58,11 +61,14 @@ body {
     gap: 2rem !important; 
 }
 
+/* Explicitly apply text-align: inherit to all non-formula headers and content cells
+     to ensure they follow the body's direction (left or right aligned). (UNCHANGED) */
 .header-row > div, 
 .cell-gemstone, .cell-group, .cell-notes {
     text-align: inherit !important; 
 }
 
+/* Language Switcher Styling (MODIFIED) */
 .lang-switcher {
     position: absolute !important;
     top: 2rem !important;
@@ -71,14 +77,39 @@ body {
     z-index: 10 !important;
     font-size: 0.9rem !important;
     letter-spacing: 0.1em !important;
+    display: flex; /* Use flexbox for better alignment of AR | EN */
+    align-items: center; /* Vertically center items */
 }
 
+/* Base style for language options */
+.lang-switcher span {
+    position: relative; /* Needed for pseudo-element positioning */
+    color: #ffffff; /* Default text color */
+    padding-bottom: 2px; /* Small padding to allow space for the underline */
+}
+
+/* Style for the active language with pseudo-element underline */
+.lang-switcher .active-lang {
+    color: #B89A6A !important; /* Gold accent color for active language */
+}
+
+.lang-switcher .active-lang::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Position at the bottom of the text */
+    left: 0;
+    width: 100%; /* Make the underline span the full width of the text */
+    height: 1px; /* Thickness of the underline */
+    background-color: #B89A6A; /* Gold color for the underline */
+}
+
+/* Ensure the main table container has full width on mobile but a max width on desktop (UNCHANGED) */
 .table-container {
     max-width: 1400px !important; 
     padding: 4rem 0 !important; 
 }
 
-/* Responsive adjustments */
+/* Responsive grid adjustments (UNCHANGED) */
 @media (max-width: 768px) {
     .table-row-item {
         grid-template-columns: 1fr !important;
@@ -95,6 +126,7 @@ body {
         display: block !important;
         padding: 0.5rem 0 !important;
     }
+    /* Styling the mobile labels with the gold accent */
     .cell-gemstone::before, .cell-formula::before, .cell-group::before, .cell-notes::before { 
         font-weight: 700 !important; 
         text-transform: uppercase !important;
@@ -108,7 +140,7 @@ body {
     .cell-gemstone {
         padding-top: 0 !important;
         font-size: 1.4rem !important;
-        font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif !important; 
+        font-family: 'IBM Plex Sans Arabic', serif !important; 
         font-weight: 700 !important;
         letter-spacing: 0.1em !important;
     }
