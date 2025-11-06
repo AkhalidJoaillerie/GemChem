@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<!-- FIX: Removed hardcoded centering on formula column and set it to inherit alignment, 
-    while maintaining LTR direction for the chemical text itself. All alignment/direction 
-    styles now use !important for highest specificity. -->
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +12,6 @@
     <meta property="og:image" content="https://akhalidjoaillerie.github.io/GemChem/Ruby%20-%20Copy.jpg">
     <meta property="og:url" content="https://akhalidjoaillerie.github.io/GemChem/index.html">
     
-    <!-- Use Inter (Sans) for body, Cormorant SC (Serif) for headings, and IBM Plex Serif for formulas -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&family=Cormorant+SC:wght@400;700&family=Castoro&family=Cardo:wght@400;700&display=swap');
 
@@ -34,7 +30,7 @@
         
         .footer-logo {
          filter: invert(1) !important; 
-}
+        }
         
         /* Directional Utility Classes - CRITICAL: ADDED !important */
         .rtl-layout {
@@ -105,6 +101,13 @@
             max-width: 1400px !important; 
             padding: 4rem 0 !important; 
         }
+        
+        /* New Styling for the header logo image */
+        .header-logo {
+            width: 200px; /* Default desktop size */
+            height: auto;
+        }
+
 
         /* Responsive grid adjustments */
         @media (max-width: 768px) {
@@ -143,6 +146,10 @@
                 font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif !important; 
                 letter-spacing: 0.1em !important;
             }
+            
+            .header-logo {
+                width: 150px; /* Smaller size for mobile */
+            }
 
             .lang-switcher {
                 top: 1rem !important;
@@ -154,7 +161,6 @@
 </head>
 <body class="p-4 md:p-12 color-dark-bg rtl-layout">
     
-    <!-- Language Switcher - Absolute Positioning (Centered) -->
     <div class="lang-switcher color-light-text font-medium">
         <span id="lang-ar" class="color-gold-accent cursor-pointer border-b border-solid border-[#B89A6A]" onclick="switchLanguage('ar')">AR</span> 
         <span class="mx-1 text-gray-400">|</span> 
@@ -162,20 +168,20 @@
     </div>
 
     <div class="table-container mx-auto">
-        <!-- Main Heading - Serif Font -->
+        <img src="Emerald Gem.png" 
+             alt="Gemstone Header Image" 
+             class="header-logo mx-auto block mb-6">
+             
         <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title">نظرة عامة على كيمياء الأحجار الكريمة</h1>
         
-        <!-- Header Row (Hidden on small mobile) -->
         <div class="header-row table-row-item text-sm  capitalize color-gold-accent tracking-widest">
             <div id="header-gemstone" class="pt-2" data-key="gemstone">الحجر الكريم</div>
-            <!-- REMOVED text-center so it aligns with the rest of the column -->
             <div id="header-formula" class="pt-2" data-key="formula">الصيغة الكيميائية</div>
             <div id="header-group" class="pt-2" data-key="group">المجموعة المعدنية</div>
             <div id="header-notes" class="pt-2" data-key="notes">ملاحظات على التركيب الكيميائي</div>
         </div>
         
         <div class="divide-y divide-gray-900">
-            <!-- Diamond Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="diamond_name">الماس</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note">C (كربون نقي)</div></div>
@@ -183,7 +189,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
             </div>
 
-            <!-- Ruby Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="ruby_name">الزفير (الياقوت الأحمر)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
@@ -191,7 +196,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
             </div>
 
-            <!-- Sapphire Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="sapphire_name">الياقوت الأزرق (السفير)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
@@ -199,7 +203,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
             </div>
 
-            <!-- Emerald Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="emerald_name">الزمرد</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Be₃Al₂(SiO₃)₆</div></div>
@@ -207,7 +210,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
             </div>
             
-            <!-- Amethyst Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="amethyst_name">الأميثيست (الجمشت)</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">SiO₂</div></div>
@@ -215,7 +217,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
             </div>
 
-            <!-- Topaz Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="topaz_name">التوباز</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂SiO₄(F, OH)₂</div></div>
@@ -223,7 +224,6 @@
                 <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
             </div>
 
-            <!-- Peridot Row -->
             <div class="table-row-item hover:bg-gray-800 transition duration-300">
                 <div class="cell-gemstone  color-light-text text-lg" data-key="peridot_name">الزبرجد</div>
                 <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">(Mg, Fe)₂SiO₄</div></div>
