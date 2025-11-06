@@ -1,3 +1,4 @@
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Cormorant+SC:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&display=swap');
 
 /* Define luxury colors */
@@ -118,3 +119,4 @@ body {
         transform: translateX(-50%) !important;
     }
 }
+</style>
