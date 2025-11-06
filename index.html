@@ -227,7 +227,7 @@
 <body class="p-4 md:p-12 color-dark-bg rtl-layout">
 
 <div id="preloader" class="preloader-overlay">
-    <img src="diamond loading gold 2.svg" alt="Loading Diamond" class="loading-image">
+    <img id="shimmer-diamond" src="diamond 1.svg" alt="Loading Diamond" class="loading-image">
 </div>
     
     <div class="lang-switcher color-light-text font-medium">
@@ -415,13 +415,52 @@
         updateTextDirection(lang);
     }
 
-    // ********** كود شاشة التحميل (تم وضعه في النطاق العام للعمل بشكل صحيح) **********
+    // ********** منطق الوميض الجديد (Shimmering Logic) **********
+    let shimmerInterval = null;
+    let lastImageIndex = -1;
+    // قائمة بأسماء ملفات الـ SVG التي تم تأكيدها
+    const DIAMOND_IMAGES = [
+        'diamond 1.svg',
+        'diamond 2.svg',
+        'diamond 3.svg',
+        'diamond 4.svg',
+        'diamond 5.svg'
+    ];
+
+    function updateShimmer() {
+        const diamondImage = document.getElementById('shimmer-diamond');
+        if (!diamondImage) return;
+
+        let newIndex;
+        // توليد رقم عشوائي جديد يختلف عن الرقم السابق (لمنع التكرار)
+        do {
+            newIndex = Math.floor(Math.random() * DIAMOND_IMAGES.length);
+        } while (newIndex === lastImageIndex);
+
+        // تبديل مصدر الصورة (الـ src)
+        diamondImage.src = DIAMOND_IMAGES[newIndex];
+        lastImageIndex = newIndex;
+    }
+
+    function startShimmer() {
+        // نضبط أول صورة على الفور
+        updateShimmer();
+        // بدء الدورة التكرارية السريعة (50 مللي ثانية)
+        shimmerInterval = setInterval(updateShimmer, 50); 
+    }
+
+    // ********** كود شاشة التحميل (معدل لإيقاف الوميض) **********
     function hidePreloader() {
         const preloader = document.getElementById('preloader');
         if (preloader) {
-            // جعلها شفافة تدريجياً
+            // 1. إيقاف تبديل صور الوميض
+            if (shimmerInterval) {
+                clearInterval(shimmerInterval);
+            }
+
+            // 2. جعلها شفافة تدريجياً
             preloader.style.opacity = '0';
-            // إزالتها من العرض بعد اكتمال التحول
+            // 3. إزالتها من العرض بعد اكتمال التحول
             setTimeout(() => {
                 preloader.style.display = 'none';
             }, 600); // 600ms تتطابق مع transition في CSS
@@ -435,6 +474,9 @@
 
     // Initialize: Store Arabic content and set up initial state
     document.addEventListener('DOMContentLoaded', () => {
+        // ابدأ الوميض فوراً بمجرد تحميل هيكل الصفحة
+        startShimmer();
+        
         // Store Arabic content from HTML into a data attribute before the first switch
         document.querySelectorAll('[data-key]').forEach(el => {
             // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
