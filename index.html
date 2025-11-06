@@ -32,11 +32,11 @@
 
 /* Spinner Animation (رمز التحميل) */
 .spinner {
-    border: 5px solid #333333; /* لون خلفية الرمز */
-    border-top: 5px solid; /* اللون الذهبي سيتم تطبيقه هنا من خلال color-gold-accent */
+    border: 2px solid #333333; /* لون خلفية الرمز */
+    border-top: 2px solid; /* اللون الذهبي سيتم تطبيقه هنا من خلال color-gold-accent */
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 6ش0px;
     animation: spin 1s linear infinite;
 }
 
@@ -303,147 +303,145 @@
         <img src="Sign.png" alt="Gemstone Overview Logo" class="footer-logo inline-block" style="width: 200px; height: auto; margin-bottom: 60px;">
         </footer>
     
-    <script>
-        const LANGUAGE_MAP = {
-            'ar': {
-                // Since this object is empty, we rely on data-ar-content
-            },
-            'en': {
-                'title': 'Gemstone Chemistry Overview',
-                'gemstone': 'Gemstone',
-                'formula': 'Chemical Formula',
-                'group': 'Mineral Group',
-                'notes': 'Chemical Structure Notes',
+<script>
+    const LANGUAGE_MAP = {
+        'ar': {
+            // Since this object is empty, we rely on data-ar-content
+        },
+        'en': {
+            'title': 'Gemstone Chemistry Overview',
+            'gemstone': 'Gemstone',
+            'formula': 'Chemical Formula',
+            'group': 'Mineral Group',
+            'notes': 'Chemical Structure Notes',
 
-                // Content
-                'diamond_name': 'Diamond',
-                'diamond_formula_note': 'C (Pure Carbon)',
-                'diamond_group': 'Native Elements',
-                'diamond_notes': 'Formed by a pure carbon lattice in a cubic crystal system, with each C atom covalently bonded to four neighbors. This structure gives diamond its supreme hardness (10 on the Mohs scale). Impurities like Nitrogen (yellow) or Boron (blue) cause color.',
+            // Content
+            'diamond_name': 'Diamond',
+            'diamond_formula_note': 'C (Pure Carbon)',
+            'diamond_group': 'Native Elements',
+            'diamond_notes': 'Formed by a pure carbon lattice in a cubic crystal system, with each C atom covalently bonded to four neighbors. This structure gives diamond its supreme hardness (10 on the Mohs scale). Impurities like Nitrogen (yellow) or Boron (blue) cause color.',
 
-                'ruby_name': 'Ruby',
-                'ruby_group': 'Corundum',
-                'ruby_notes': 'Aluminum oxide, trigonal crystal structure. Brilliant red color from trace Chromium (Cr³⁺) ions substituting for Aluminum (Al³⁺) in the lattice.',
+            'ruby_name': 'Ruby',
+            'ruby_group': 'Corundum',
+            'ruby_notes': 'Aluminum oxide, trigonal crystal structure. Brilliant red color from trace Chromium (Cr³⁺) ions substituting for Aluminum (Al³⁺) in the lattice.',
 
-                'sapphire_name': 'Sapphire',
-                'sapphire_group': 'Corundum',
-                'sapphire_notes': 'Chemically identical to Ruby (Al₂O₃). Colors (except red) from different trace elements: Blue from Iron (Fe) and Titanium (Ti). Other elements create violet, yellow, and green varieties.',
+            'sapphire_name': 'Sapphire',
+            'sapphire_group': 'Corundum',
+            'sapphire_notes': 'Chemically identical to Ruby (Al₂O₃). Colors (except red) from different trace elements: Blue from Iron (Fe) and Titanium (Ti). Other elements create violet, yellow, and green varieties.',
 
-                'emerald_name': 'Emerald',
-                'emerald_group': 'Beryl',
-                'emerald_notes': 'A Beryllium Aluminum Cyclosilicate. Intense green color from trace Chromium (Cr) or sometimes Vanadium (V) replacing Aluminum in the ring-like silicate structure.',
+            'emerald_name': 'Emerald',
+            'emerald_group': 'Beryl',
+            'emerald_notes': 'A Beryllium Aluminum Cyclosilicate. Intense green color from trace Chromium (Cr) or sometimes Vanadium (V) replacing Aluminum in the ring-like silicate structure.',
 
-                'amethyst_name': 'Amethyst',
-                'amethyst_group': 'Quartz',
-                'amethyst_notes': 'Silicon Dioxide (SiO₂) quartz variety. Purple color from Iron (Fe³⁺) impurities within the crystal structure, exposed to natural irradiation.',
+            'amethyst_name': 'Amethyst',
+            'amethyst_group': 'Quartz',
+            'amethyst_notes': 'Silicon Dioxide (SiO₂) quartz variety. Purple color from Iron (Fe³⁺) impurities within the crystal structure, exposed to natural irradiation.',
 
-                'topaz_name': 'Topaz',
-                'topaz_group': 'Silicate',
-                'topaz_notes': 'Aluminosilicate containing Fluorine (F) and/or Hydroxide (OH) groups. Pure Topaz is colorless. Colors (blue, yellow, pink) caused by atomic imperfections or specific trace elements.',
+            'topaz_name': 'Topaz',
+            'topaz_group': 'Silicate',
+            'topaz_notes': 'Aluminosilicate containing Fluorine (F) and/or Hydroxide (OH) groups. Pure Topaz is colorless. Colors (blue, yellow, pink) caused by atomic imperfections or specific trace elements.',
 
-                'peridot_name': 'Peridot',
-                'peridot_group': 'Olivine',
-                'peridot_notes': 'Magnesium Iron Silicate. Distinct olive-green color is intrinsic to the gem, caused by Iron (Fe) in the main chemical composition, unlike impurity-based colors.',
-            }
-        };
-
-        function updateTextDirection(lang) {
-            const isRTL = lang === 'ar';
-            const html = document.documentElement;
-            const body = document.body;
-
-            // CRITICAL FIX: Explicitly control directionality on the body element using utility classes
-            html.setAttribute('lang', lang);
-            html.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-            
-            body.classList.toggle('rtl-layout', isRTL);
-            body.classList.toggle('ltr-layout', !isRTL);
-            
-            // Formula header alignment is now controlled by CSS 'inherit' and the body's direction.
-
-            // Update switcher styles
-            document.getElementById('lang-ar').classList.toggle('color-gold-accent', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-b', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-[#B89A6A]', isRTL);
-            document.getElementById('lang-ar').classList.toggle('border-solid', isRTL);
-
-
-            document.getElementById('lang-en').classList.toggle('color-gold-accent', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-b', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-[#B89A6A]', !isRTL);
-            document.getElementById('lang-en').classList.toggle('border-solid', !isRTL);
-
+            'peridot_name': 'Peridot',
+            'peridot_group': 'Olivine',
+            'peridot_notes': 'Magnesium Iron Silicate. Distinct olive-green color is intrinsic to the gem, caused by Iron (Fe) in the main chemical composition, unlike impurity-based colors.',
         }
+    };
 
-        function switchLanguage(lang) {
-            if (lang === 'ar') {
-                // To switch to Arabic, we retrieve the content from the data-ar-content attribute
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (el.tagName === 'TITLE') {
-                        const arText = 'نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر';
-                        el.textContent = arText;
-                    } else {
-                        const arText = el.getAttribute('data-ar-content');
-                        if (arText) el.innerHTML = arText;
-                    }
-                });
-            } else if (lang === 'en') {
-                // To switch to English, we use the content from the LANGUAGE_MAP
-                document.querySelectorAll('[data-key]').forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (LANGUAGE_MAP['en'][key]) {
-                        if (el.tagName === 'TITLE') {
-                            el.textContent = LANGUAGE_MAP['en'][key] + ' | Bvlgari Luxury Style';
-                        } else {
-                            el.innerHTML = LANGUAGE_MAP['en'][key];
-                        }
-                    }
-                });
-            }
-            updateTextDirection(lang);
-        }
+    function updateTextDirection(lang) {
+        const isRTL = lang === 'ar';
+        const html = document.documentElement;
+        const body = document.body;
 
-        function hidePreloader() {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                // جعلها شفافة تدريجياً
-                preloader.style.opacity = '0';
-                // إزالتها من العرض بعد اكتمال التحول
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 600); // 600ms تتطابق مع transition في CSS
-            }
-        }
+        // CRITICAL FIX: Explicitly control directionality on the body element using utility classes
+        html.setAttribute('lang', lang);
+        html.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+        
+        body.classList.toggle('rtl-layout', isRTL);
+        body.classList.toggle('ltr-layout', !isRTL);
+        
+        // Formula header alignment is now controlled by CSS 'inherit' and the body's direction.
 
-        // انتظر حتى يتم تحميل كل شيء (بما في ذلك الصور والخطوط)
-        window.addEventListener('load', hidePreloader);
+        // Update switcher styles
+        document.getElementById('lang-ar').classList.toggle('color-gold-accent', isRTL);
+        document.getElementById('lang-ar').classList.toggle('border-b', isRTL);
+        document.getElementById('lang-ar').classList.toggle('border-[#B89A6A]', isRTL);
+        document.getElementById('lang-ar').classList.toggle('border-solid', isRTL);
 
 
-        // Initialize: Store Arabic content and set up initial state
-        document.addEventListener('DOMContentLoaded', () => {
-        // ...
+        document.getElementById('lang-en').classList.toggle('color-gold-accent', !isRTL);
+        document.getElementById('lang-en').classList.toggle('border-b', !isRTL);
+        document.getElementById('lang-en').classList.toggle('border-[#B89A6A]', !isRTL);
+        document.getElementById('lang-en').classList.toggle('border-solid', !isRTL);
 
-        // Initialize: Store Arabic content and set up initial state
-        document.addEventListener('DOMContentLoaded', () => {
-            // Store Arabic content from HTML into a data attribute before the first switch
+    }
+
+    function switchLanguage(lang) {
+        if (lang === 'ar') {
+            // To switch to Arabic, we retrieve the content from the data-ar-content attribute
             document.querySelectorAll('[data-key]').forEach(el => {
-                // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
-                if (el.innerHTML.trim()) {
-    el.setAttribute('data-ar-content', el.innerHTML);
-}
+                const key = el.getAttribute('data-key');
+                if (el.tagName === 'TITLE') {
+                    const arText = 'نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر';
+                    el.textContent = arText;
+                } else {
+                    const arText = el.getAttribute('data-ar-content');
+                    if (arText) el.innerHTML = arText;
+                }
+            });
+        } else if (lang === 'en') {
+            // To switch to English, we use the content from the LANGUAGE_MAP
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (LANGUAGE_MAP['en'][key]) {
+                    if (el.tagName === 'TITLE') {
+                        el.textContent = LANGUAGE_MAP['en'][key] + ' | Bvlgari Luxury Style';
+                    } else {
+                        el.innerHTML = LANGUAGE_MAP['en'][key];
+                    }
+                }
+            });
+        }
+        updateTextDirection(lang);
+    }
 
-            });
-            // Also explicitly set the formula divs to store their complex Arabic content 
-            // since they contain LTR formulas wrapped in AR context.
-            document.querySelectorAll('.table-row-item .cell-formula > div').forEach(el => {
-                 el.setAttribute('data-ar-content', el.innerHTML);
-            });
-            
-            // Ensure initial direction and styling are correct for 'ar'
-            updateTextDirection('ar');
+    // ********** كود شاشة التحميل (تم وضعه في النطاق العام للعمل بشكل صحيح) **********
+    function hidePreloader() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            // جعلها شفافة تدريجياً
+            preloader.style.opacity = '0';
+            // إزالتها من العرض بعد اكتمال التحول
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 600); // 600ms تتطابق مع transition في CSS
+        }
+    }
+
+    // انتظر حتى يتم تحميل كل شيء (بما في ذلك الصور والخطوط)
+    window.addEventListener('load', hidePreloader);
+    // ********************************************************************************
+
+
+    // Initialize: Store Arabic content and set up initial state
+    document.addEventListener('DOMContentLoaded', () => {
+        // Store Arabic content from HTML into a data attribute before the first switch
+        document.querySelectorAll('[data-key]').forEach(el => {
+            // Only store if it's not empty and not the formula text (which is complex LTR/RTL)
+            if (el.innerHTML.trim()) {
+                el.setAttribute('data-ar-content', el.innerHTML);
+            }
+
         });
-    </script>
+        // Also explicitly set the formula divs to store their complex Arabic content 
+        // since they contain LTR formulas wrapped in AR context.
+        document.querySelectorAll('.table-row-item .cell-formula > div').forEach(el => {
+             el.setAttribute('data-ar-content', el.innerHTML);
+        });
+        
+        // Ensure initial direction and styling are correct for 'ar'
+        updateTextDirection('ar');
+    });
+</script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
