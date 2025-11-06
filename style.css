@@ -1,116 +1,120 @@
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Cormorant+SC:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&display=swap');
-    
-    /* Define luxury colors */
-    .color-dark-bg { background-color: #111111 !important; } 
-    .color-light-text { color: #ffffff !important; } 
-    .color-gold-accent { color: #B89A6A !important; } 
-    
-    body {
-        font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif !important;
-        background-color: #111111 !important;
-        color: #ffffff !important;
-    }
-    
-    /* Directional Utility Classes */
-    .rtl-layout {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    .ltr-layout {
-        direction: ltr !important;
-        text-align: left !important;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Cormorant+SC:wght@400;700&family=IBM+Plex+Serif:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;700&display=swap');
 
-    /* Luxury heading */
-    .luxury-heading {
-        font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif; 
-        letter-spacing: 0.15em; 
-        font-weight: 400; 
-        font-size: 2.8rem; 
-        text-transform: capitalize;
-    }
-    
-    /* Chemical formulas */
-    .formula-text {
-        font-family: 'IBM Plex Serif', serif; 
-        font-weight: 700; 
-        font-style: italic; 
-        font-size: 1.1rem; 
-        color: #ffffff; 
-        text-align: inherit !important;
-        direction: ltr !important; 
-    }
+/* Define luxury colors */
+.color-dark-bg { background-color: #111111 !important; } 
+.color-light-text { color: #ffffff !important; } 
+.color-gold-accent { color: #B89A6A !important; } 
 
-    /* Table row styling */
+body {
+    font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif !important;
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+/* Directional Utility Classes */
+.rtl-layout {
+    direction: rtl !important;
+    text-align: right !important;
+}
+.ltr-layout {
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+/* Luxury heading */
+.luxury-heading {
+    font-family: 'Cormorant SC', serif;
+    letter-spacing: 0.15em;
+    font-weight: 400;
+    font-size: 2.8rem;
+    text-transform: capitalize;
+}
+
+/* Luxury heading Arabic override */
+.luxury-heading:lang(ar) {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    text-transform: capitalize;
+}
+
+/* Chemical formulas */
+.formula-text {
+    font-family: 'IBM Plex Serif', serif; 
+    font-weight: 700; 
+    font-style: italic; 
+    font-size: 1.1rem; 
+    color: #ffffff; 
+    text-align: inherit !important;
+    direction: ltr !important; 
+}
+
+/* Table row styling */
+.table-row-item {
+    border-bottom: 1px solid #2e2e2e !important; 
+    padding-top: 2.5rem !important; 
+    padding-bottom: 2.5rem !important; 
+    display: grid !important;
+    grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
+    gap: 2rem !important; 
+}
+
+.header-row > div, 
+.cell-gemstone, .cell-group, .cell-notes {
+    text-align: inherit !important; 
+}
+
+.lang-switcher {
+    position: absolute !important;
+    top: 2rem !important;
+    left: 50% !important; 
+    transform: translateX(-50%) !important; 
+    z-index: 10 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.1em !important;
+}
+
+.table-container {
+    max-width: 1400px !important; 
+    padding: 4rem 0 !important; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .table-row-item {
-        border-bottom: 1px solid #2e2e2e !important; 
-        padding-top: 2.5rem !important; 
-        padding-bottom: 2.5rem !important; 
-        display: grid !important;
-        grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
-        gap: 2rem !important; 
+        grid-template-columns: 1fr !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+        gap: 0.5rem !important;
     }
-    
-    .header-row > div, 
-    .cell-gemstone, .cell-group, .cell-notes {
-        text-align: inherit !important; 
+    .header-row {
+        display: none !important; 
     }
-    
-    .lang-switcher {
-        position: absolute !important;
-        top: 2rem !important;
-        left: 50% !important; 
-        transform: translateX(-50%) !important; 
-        z-index: 10 !important;
-        font-size: 0.9rem !important;
+    .cell-gemstone, .cell-formula, .cell-group, .cell-notes {
+        display: block !important;
+        padding: 0.5rem 0 !important;
+    }
+    .cell-gemstone::before, .cell-formula::before, .cell-group::before, .cell-notes::before { 
+        font-weight: 700 !important; 
+        text-transform: uppercase !important;
+        font-size: 0.75rem !important;
+        display: block !important;
+        margin-bottom: 0.25rem !important;
+        letter-spacing: 0.1em !important;
+        color: #B89A6A !important; 
+    }
+
+    .cell-gemstone {
+        padding-top: 0 !important;
+        font-size: 1.4rem !important;
+        font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif !important; 
+        font-weight: 700 !important;
         letter-spacing: 0.1em !important;
     }
 
-    .table-container {
-        max-width: 1400px !important; 
-        padding: 4rem 0 !important; 
+    .lang-switcher {
+        top: 1rem !important;
+        left: 50% !important; 
+        transform: translateX(-50%) !important;
     }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .table-row-item {
-            grid-template-columns: 1fr !important;
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
-            padding-top: 1.5rem !important;
-            padding-bottom: 1.5rem !important;
-            gap: 0.5rem !important;
-        }
-        .header-row {
-            display: none !important; 
-        }
-        .cell-gemstone, .cell-formula, .cell-group, .cell-notes {
-            display: block !important;
-            padding: 0.5rem 0 !important;
-        }
-        .cell-gemstone::before, .cell-formula::before, .cell-group::before, .cell-notes::before { 
-            font-weight: 700 !important; 
-            text-transform: uppercase !important;
-            font-size: 0.75rem !important;
-            display: block !important;
-            margin-bottom: 0.25rem !important;
-            letter-spacing: 0.1em !important;
-            color: #B89A6A !important; 
-        }
-
-        .cell-gemstone {
-            padding-top: 0 !important;
-            font-size: 1.4rem !important;
-            font-family: 'Cormorant SC', 'IBM Plex Sans Arabic', serif !important; 
-            font-weight: 700 !important;
-            letter-spacing: 0.1em !important;
-        }
-
-        .lang-switcher {
-            top: 1rem !important;
-            left: 50% !important; 
-            transform: translateX(-50%) !important;
-        }
-    }
-</style>
+}
