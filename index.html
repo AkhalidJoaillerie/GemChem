@@ -107,7 +107,23 @@
             width: 300px; /* Default desktop size */
             height: auto;
         }
+/* ********** NEW STYLES FOR DESKTOP IMAGE (EMERALD) ********** */
+/* Container to define 500px width and apply cropping */
+.header-image-crop {
+    width: 500px !important; /* العرض المطلوب 500 بكسل */
+    height: 300px; /* تحديد ارتفاع للحاوية لإنشاء مساحة الاقتصاص (لتحقيق الاقتصاص 20% تقريباً) */
+    overflow: hidden !important; /* إخفاء الأجزاء الزائدة (لتحقيق الاقتصاص) */
+    margin-left: auto; /* لتوسيط الحاوية */
+    margin-right: auto; /* لتوسيط الحاوية */
+    display: block; /* لضمان التوسيط */
+}
 
+/* Image inside the container */
+.header-logo-cropped {
+    width: 100%; /* اجعل الصورة تملأ عرض الحاوية (500 بكسل) */
+    height: 100%; /* اجعل الصورة تملأ ارتفاع الحاوية (300 بكسل) */
+    object-fit: cover; /* لضمان تغطية الصورة للحاوية مع الاقتصاص من الأعلى والأسفل */
+}
 
         /* Responsive grid adjustments */
         @media (max-width: 768px) {
@@ -156,6 +172,10 @@
                 left: 50% !important; 
                 transform: translateX(-50%) !important;
             }
+            /* إضافة هذا الكود لإخفاء حاوية الاقتصاص في شاشات الجوال */
+    .header-image-crop {
+        display: none !important; 
+    }
         }
     </style>
 </head>
@@ -167,10 +187,14 @@
         <span id="lang-en" class="cursor-pointer" onclick="switchLanguage('en')">EN</span>
     </div>
 
-    <div class="table-container mx-auto">
-        <img src="Gems - Gems 2.png" 
-             alt="Gemstone Header Image" 
-             class="header-logo mx-auto block mb-6">
+<div class="table-container mx-auto">
+        <img src="Gems.jpg" 
+             alt="Mobile Gemstone Header Image" 
+             class="header-logo mx-auto block mb-6 md:hidden"> 
+
+        <img src="Emerald Gem.png" 
+             alt="Desktop Gemstone Header Image" 
+             class="header-logo mx-auto hidden md:block mb-6">
              
         <h1 id="main-title" class="luxury-heading color-gold-accent mb-6 text-center mx-auto" data-key="title">نظرة عامة على كيمياء الأحجار الكريمة</h1>
         
@@ -236,7 +260,7 @@
 </div> 
 
     <footer class="color-gold-accent text-center pt-8 pb-4 md:hidden">
-        <img src="Sign.png" alt="Gemstone Overview Logo" class="footer-logo inline-block" style="width: 225px; height: auto; margin-bottom: 40px;">
+        <img src="Sign.png" alt="Gemstone Overview Logo" class="footer-logo inline-block" style="width: 200px; height: auto; margin-bottom: 40px;">
         </footer>
     
     <script>
