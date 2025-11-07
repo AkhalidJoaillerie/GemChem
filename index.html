@@ -31,21 +31,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #111111; /* نفس لون خلفية الجسم */
-    z-index: 9999; /* تأكد أنها فوق كل العناصر */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.6s ease-out; /* إضافة انتقال سلس للاختفاء */
-}
-
-/* Preloader Styles */
-.preloader-overlay {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-color: #111111;
     z-index: 9999;
     display: flex;
@@ -56,9 +41,9 @@
 
 /* الكود الجديد لصورة الـ SVG */
 .loading-image {
-    width: 70px; /* يمكنك تعديل حجم الصورة */
+    width: 70px;
     height: 70px;
-    animation: spin 2s linear infinite; /* تطبيق حركة الدوران عليها */
+    animation: spin 2s linear infinite;
 }
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -79,18 +64,15 @@
         }
 
         img {
-    /* منع تحديد النص/الصورة */
-    user-select: none;
-    
-    /* منع سحب الصورة (للمتصفحات المبنية على Chromium) */
-    -webkit-user-drag: none; 
-    
-    /* منع سحب الصورة (للتوافق العام) */
-    user-drag: none; 
-    
-    /* منع ظهور قوائم الأدوات المخصصة التي تظهر عند النقر على الصور في بعض المتصفحات المحمولة */
-    pointer-events: none; 
-}
+            /* منع تحديد النص/الصورة */
+            user-select: none;
+            /* منع سحب الصورة (للمتصفحات المبنية على Chromium) */
+            -webkit-user-drag: none; 
+            /* منع سحب الصورة (للتوافق العام) */
+            user-drag: none; 
+            /* منع ظهور قوائم الأدوات المخصصة التي تظهر عند النقر على الصور في بعض المتصفحات المحمولة */
+            pointer-events: none; 
+        }
         
         .footer-logo {
          filter: invert(1) !important; 
@@ -217,38 +199,62 @@
     transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
 
+/* ** تعريف الضوضاء الناتجة عن CSS لاستخدامها في كلا التأثيرين ** */
+.css-noise {
+    /* تطبيق طبقة الضوضاء أولاً لكسر التدرج الحاد (Anti-Banding) */
+    background-image: 
+        repeating-radial-gradient(circle at center, 
+            rgba(255, 255, 255, 0.03) 0.5px, 
+            transparent 1px
+        );
+}
+
 /* ------------------------------------------------------------- */
-/* ** NEW: Mobile Active State Class (used by JavaScript) ** */
-/* ** (يستخدم التضبيط الأخير للتدريج الناعم) ** */
+/* ** Mobile Active State Class (استناداً إلى قيمك الجديدة 0%, 40%, 50%, 100%) ** */
 /* ------------------------------------------------------------- */
 .mobile-active::after {
     opacity: 1 !important;
     
-    background-image: linear-gradient(to right,
-        #111111 0%,
-        transparent 0%, /* بداية التلاشي مبكراً (5%) */
-        var(--hover-color) 40%, /* نهاية التلاشي/بداية اللون الصلب (45%) */
-        var(--hover-color) 50%, /* نهاية اللون الصلب (55%) */
-        transparent 100%, /* نهاية التلاشي متأخراً (95%) */
-        #111111 100%
-    ) !important;
+    background-image: 
+        /* الضوضاء الناتجة عن CSS */
+        repeating-radial-gradient(circle at center, 
+            rgba(255, 255, 255, 0.03) 0.5px, 
+            transparent 1px
+        ), 
+        /* التدريج الأساسي */
+        linear-gradient(to right,
+            transparent 0%,      /* نقطة بداية التلاشي */
+            var(--hover-color) 40%, /* نهاية التلاشي/بداية اللون الصلب */
+            var(--hover-color) 50%, /* نهاية اللون الصلب */
+            transparent 100%       /* نقطة نهاية التلاشي */
+        ) !important;
+        
+    background-blend-mode: overlay, normal !important;
 }
 /* ------------------------------------------------------------- */
 
 
-/* تطبيق التدرج اللوني عند التمرير (Hover) - الإعداد الافتراضي للديسكتوب (الأكثر حدة) */
+/* تطبيق التدرج اللوني عند التمرير (Hover) - الإعداد الافتراضي للديسكتوب */
 .table-row-item:hover::after {
     opacity: 1; /* يظهر العنصر الزائف عند التمرير */
     
-    background-image: linear-gradient(to right,
-        #111111 0%,
-        transparent 5%, /* نقاط توقف حادة (للشاشات العريضة) */
-        var(--hover-color) 20%, 
-        var(--hover-color) 80%,
-        transparent 95%, 
-        #111111 100%
-    );
+    background-image: 
+        /* الضوضاء الناتجة عن CSS */
+        repeating-radial-gradient(circle at center, 
+            rgba(255, 255, 255, 0.03) 0.5px, 
+            transparent 1px
+        ), 
+        /* التدريج الأساسي */
+        linear-gradient(to right,
+            transparent 0%, 
+            var(--hover-color) 40%, 
+            var(--hover-color) 50%,
+            transparent 100% 
+        );
+        
+    background-blend-mode: overlay, normal;
 }
+
 /* ******************************************************************************** */
         
         /* Responsive grid adjustments */
@@ -262,18 +268,6 @@
                 gap: 0.5rem !important;
             }
 
-            /* ** Mobile Specific Gradient Fix (يستخدم التضبيط الأخير للتدريج الناعم) ** */
-            .table-row-item:hover::after {
-                background-image: linear-gradient(to right,
-                    #111111 0%,
-                    transparent 5%, /* بداية التلاشي مبكراً (5%) */
-                    var(--hover-color) 45%, /* نهاية التلاشي/بداية اللون الصلب (45%) */
-                    var(--hover-color) 55%, /* نهاية اللون الصلب (55%) */
-                    transparent 95%, /* نهاية التلاشي متأخراً (95%) */
-                    #111111 100%
-                );
-            }
-            
             .header-row {
                 display: none !important; 
             }
@@ -467,7 +461,6 @@
         body.classList.toggle('rtl-layout', isRTL);
         body.classList.toggle('ltr-layout', !isRTL);
         
-        // Formula header alignment is now controlled by CSS 'inherit' and the body's direction.
 
         // Update switcher styles
         document.getElementById('lang-ar').classList.toggle('color-gold-accent', isRTL);
@@ -488,7 +481,6 @@
             // To switch to Arabic, we retrieve the content from the data-ar-content attribute
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                // لا يوجد شرط خاص بالـ TITLE. سيستخدم el.getAttribute('data-ar-content') لجميع العناصر.
                 const arText = el.getAttribute('data-ar-content');
                 if (arText) el.innerHTML = arText;
             });
@@ -498,7 +490,6 @@
                 const key = el.getAttribute('data-key');
                 if (LANGUAGE_MAP['en'][key]) {
                     if (el.tagName === 'TITLE') {
-                        // **تم تصحيح العنوان ليصبح GemChem فقط**
                         el.textContent = LANGUAGE_MAP['en'][key]; 
                     } else {
                         el.innerHTML = LANGUAGE_MAP['en'][key];
@@ -521,7 +512,7 @@
         // إذا لم يكن العنصر صورة، يتم تجاهل الأمر والسماح بظهور قائمة "نسخ" للنص.
     });
 
-    // ********** كود شاشة التحميل (تم وضعه في النطاق العام للعمل بشكل صحيح) **********
+    // ********** كود شاشة التحميل **********
     function hidePreloader() {
         const preloader = document.getElementById('preloader');
         if (preloader) {
@@ -534,9 +525,9 @@
         }
     }
 
-    // انتظر حتى يتم تحميل كل شيء (بما في ذلك الصور والخطوط)
+    // انتظر حتى يتم تحميل كل شيء
     window.addEventListener('load', hidePreloader);
-    // ********************************************************************************
+    // ***************************************
 
 
     // Initialize: Store Arabic content and set up initial state
