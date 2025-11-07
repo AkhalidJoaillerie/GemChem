@@ -141,7 +141,7 @@
             grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
             gap: 2rem !important; 
             
-            /* ** مشكلة الحساسية على الموبايل: تم الإصلاح هنا ** */
+            /* ** مشكلة الحساسية على الموبايل (CSS Side): تم إضافة هذه الخاصية ** */
             position: relative;
             overflow: hidden;
             z-index: 1; 
@@ -217,6 +217,24 @@
     transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
 
+/* ------------------------------------------------------------- */
+/* ** NEW: Mobile Active State Class (used by JavaScript) ** */
+/* ------------------------------------------------------------- */
+.mobile-active::after {
+    opacity: 1 !important;
+    /* نسخ نفس التدرج المُعدَّل للموبايل (الأوسع والأكثر سلاسة) */
+    background-image: linear-gradient(to right,
+        #111111 0%,
+        transparent 15%, 
+        var(--hover-color) 35%, 
+        var(--hover-color) 65%,
+        transparent 85%, 
+        #111111 100%
+    ) !important;
+}
+/* ------------------------------------------------------------- */
+
+
 /* تطبيق التدرج اللوني عند التمرير (Hover) - الإعداد الافتراضي للديسكتوب (الأكثر حدة) */
 .table-row-item:hover::after {
     opacity: 1; /* يظهر العنصر الزائف عند التمرير */
@@ -243,14 +261,14 @@
                 gap: 0.5rem !important;
             }
 
-            /* ** Mobile Specific Gradient Fix ** */
+            /* ** Mobile Specific Gradient Fix (Also applies to :hover on small non-touch devices) ** */
             .table-row-item:hover::after {
                 background-image: linear-gradient(to right,
                     #111111 0%,
-                    transparent 10%, /* نقاط توقف أوسع (للشاشات الضيقة) */
-                    var(--hover-color) 25%, 
-                    var(--hover-color) 75%,
-                    transparent 90%, 
+                    transparent 15%, /* نقاط توقف أوسع (للشاشات الضيقة) - تم التعديل هنا */
+                    var(--hover-color) 35%, 
+                    var(--hover-color) 65%,
+                    transparent 85%, 
                     #111111 100%
                 );
             }
@@ -538,6 +556,56 @@
         
         // Ensure initial direction and styling are correct for 'ar'
         updateTextDirection('ar');
+
+
+        // ********** كود إصلاح الـ Hover/Touch للموبايل **********
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+        
+        // نطبق اللوجيك فقط على أجهزة اللمس ذات الشاشات الضيقة
+        if (isTouchDevice && window.innerWidth <= 768) {
+            const rows = document.querySelectorAll('.table-row-item');
+
+            rows.forEach(row => {
+                // نستخدم touchstart لتطبيق التأثير فوراً، {passive: true} لتحسين أداء السكرول
+                row.addEventListener('touchstart', function(event) {
+                    
+                    // 1. إزالة الفئة من جميع الصفوف الأخرى
+                    rows.forEach(r => {
+                        if (r !== row) {
+                            r.classList.remove('mobile-active');
+                        }
+                    });
+
+                    // 2. تبديل (Toggle) الفئة على الصف الحالي
+                    this.classList.toggle('mobile-active');
+                }, {passive: true}); 
+
+            });
+
+            // 3. إزالة تأثير الـ active عند لمس أي مكان خارج الجدول (للإغلاق)
+            document.body.addEventListener('touchstart', function(event) {
+                let insideRow = false;
+                let target = event.target;
+                
+                // التحقق مما إذا كانت اللمسة داخل أحد الصفوف
+                while(target) {
+                    if (target.classList && target.classList.contains('table-row-item')) {
+                        insideRow = true;
+                        break;
+                    }
+                    if (target === document.body) break; 
+                    target = target.parentNode;
+                }
+
+                // إذا كانت اللمسة خارج أي صف، أزل التنشيط من جميع الصفوف
+                if (!insideRow) {
+                    document.querySelectorAll('.table-row-item').forEach(r => {
+                        r.classList.remove('mobile-active');
+                    });
+                }
+            }, {passive: true});
+        }
+        // ********************************************************************************
     });
 </script>
     <script src="https://cdn.tailwindcss.com"></script>
