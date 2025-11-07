@@ -141,9 +141,10 @@
             grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
             gap: 2rem !important; 
             
-            /* ************ التعديل من الخطوة 1.A ************ */
-            position: relative; /* يجب أن يكون الموضع نسبيًا */
-            overflow: hidden; /* لمنع تجاوز محتوى التدرج عن حدود الصف */
+            /* ** التعديل الأول: الصف هو المرجع والعمق الأساسي ** */
+            position: relative;
+            overflow: hidden;
+            z-index: 1; /* يجب أن يكون الصف نفسه هو نقطة البداية (1) */
         }
         
         /* Explicitly apply text-align: inherit to all non-formula headers and content cells
@@ -151,6 +152,10 @@
         .header-row > div, 
         .cell-gemstone, .cell-group, .cell-notes {
             text-align: inherit !important; 
+            
+            /* ** التعديل الثاني: رفع عمق النص ليكون فوق تأثير التلاشي ** */
+            position: relative; /* يجب أن تكون الخلايا ذات موضع نسبي */
+            z-index: 2; /* نجعلها أعلى من تأثير التلاشي (::after) */
         }
         
         /* Language Switcher Styling */
@@ -196,7 +201,6 @@
         /* *************************************************************** */
 
 /* ********** كود تأثير التلاشي عند التمرير (Fading Hover Effect) ********** */
-/* ********** (حل محل الأكواد القديمة المحذوفة) ********** */
 
 /* العنصر الزائف (::after) لإنشاء تأثير الـ hover */
 .table-row-item::after {
@@ -208,7 +212,8 @@
     height: 100%;
     opacity: 0; /* يبدأ شفافاً بالكامل */
     pointer-events: none;
-    z-index: 1; /* يجب أن يكون خلف النصوص لكن أمام الخلفية الأساسية */
+    /* ** التعديل الثالث: جعل التلاشي خلف كل النصوص ** */
+    z-index: 0; /* يجب أن يجلس خلف النصوص (z-index: 2) */
     transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
 
