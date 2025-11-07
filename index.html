@@ -222,15 +222,18 @@
 /* ******************************************************************************** */
 
 /* ========================================================= */
-/* 🆕 قواعد حركة الصورة (المرحلة 1) */
+/* 🆕 قواعد حركة الصورة (المرحلة 2) */
 /* ========================================================= */
 
-/* 🆕 النص داخل خلية الاسم (للسماح بالتحريك) */
+/* 🆕 النص داخل خلية الاسم */
 .gem-name-cell-text {
     position: relative;
     z-index: 2; /* النص فوق الصورة */
     display: inline-block; /* للسماح بتطبيق التحريك */
     transition: transform 0.3s ease-out;
+    
+    /* 🔴 حل مشكلة التداخل 1/2: منع التفاف النص */
+    white-space: nowrap; 
 }
 
 /* 🆕 إخفاء الصورة في الحالة الافتراضية (مخفية وجاهزة للحركة) */
@@ -243,17 +246,23 @@
     top: 50%;
     z-index: 1; /* الصورة خلف النص */
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    
+    /* 🔴 حل مشكلة التداخل 2/2: ضمان أن الصورة لا يمكن النقر عليها وتجاهلها في تخطيط النص */
+    pointer-events: none;
 }
 
-/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (RTL) */
+/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (RTL) - لا يزال position: absolute */
 .rtl-layout .gem-image {
+    /* 🔴 تغيير: لضمان المحاذاة مع النص وليس الخلية، يتم وضعها عند 0 والتحريك منها */
     right: 0; 
-    transform: translate(10px, -50%); /* إزاحة أولية للخارج (يميناً) */
+    /* 🔴 تغيير: يتم ضبط الإزاحة الأولية لتبدأ الصورة من يمين النص مباشرة (50% من حجمها) */
+    transform: translate(50%, -50%); 
 }
-/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (LTR) */
+/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (LTR) - لا يزال position: absolute */
 .ltr-layout .gem-image {
     left: 0;
-    transform: translate(-10px, -50%); /* إزاحة أولية للخارج (يساراً) */
+    /* 🔴 تغيير: يتم ضبط الإزاحة الأولية لتبدأ الصورة من يسار النص مباشرة (50% من حجمها) */
+    transform: translate(-50%, -50%); 
 }
 
 /* --------------------------------------------------------- */
@@ -269,11 +278,13 @@
     }
     /* (RTL) حركة الدخول */
     .rtl-layout .table-row-item:hover .gem-image {
-        transform: translate(-55px, -50%); /* 50px حجم + 5px هامش */
+        /* 🔴 التعديل الجذري: نزيد الإزاحة من 50% إلى 50% + 55px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(50% + 55px), -50%); 
     }
     /* (LTR) حركة الدخول */
     .ltr-layout .table-row-item:hover .gem-image {
-        transform: translate(55px, -50%); /* 50px حجم + 5px هامش */
+        /* 🔴 التعديل الجذري: نزيد الإزاحة من -50% إلى -50% - 55px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(-50% - 55px), -50%); 
     }
     
     /* 2. إزاحة اسم الحجر للداخل عند التمرير */
@@ -301,11 +312,13 @@
     }
     /* (RTL) حركة الدخول */
     .rtl-layout .table-row-item.mobile-active .gem-image {
-        transform: translate(-45px, -50%);
+        /* 🔴 تعديل: نزيد الإزاحة من 50% إلى 50% + 45px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(50% + 45px), -50%);
     }
     /* (LTR) حركة الدخول */
     .ltr-layout .table-row-item.mobile-active .gem-image {
-        transform: translate(45px, -50%);
+        /* 🔴 تعديل: نزيد الإزاحة من -50% إلى -50% - 45px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(-50% - 45px), -50%);
     }
 
     /* 2. إزاحة اسم الحجر للداخل عند النقر */
@@ -318,9 +331,9 @@
         transform: translateX(45px);
     }
     
-    /* 3. 🆕 (إصلاح 6) إلغاء تأثير الـ Hover تماماً على الموبايل */
+    /* 3. إلغاء تأثير الـ Hover تماماً على الموبايل */
     .table-row-item:hover::after {
-        opacity: 0 !important; /* إلغاء تفعيل الـ Hover الافتراضي */
+        opacity: 0 !important; 
     }
 }
 
@@ -348,9 +361,8 @@
                 gap: 0.5rem !important;
             }
 
-            /* 🆕 (إصلاح 6) إلغاء تفعيل الـ Hover الخاص بالتدريج القديم على الموبايل */
+            /* إلغاء تفعيل الـ Hover الخاص بالتدريج القديم على الموبايل */
             .table-row-item:hover::after {
-                /* تم نقل هذا الكود ليكون 0 (ملغي) في القاعدة السابقة */
                 opacity: 0 !important;
             }
             
@@ -535,7 +547,7 @@
             // Since this object is empty, we rely on data-ar-content
         },
         'en': {
-            'browser_title': 'GemChem', // *NEW LINE* : هذا لترجمة عنوان المتصفح إلى GemChem
+            'browser_title': 'GemChem', 
             'title': 'Gemstone Chemistry Overview',
             'gemstone': 'Gemstone',
             'formula': 'Chemical Formula',
@@ -610,7 +622,7 @@
                 const arText = el.getAttribute('data-ar-content');
                 
                 // 🆕 التأكد من تحديث النص داخل span فقط
-                const targetElement = el.querySelector('span') || el;
+                const targetElement = el.querySelector('.gem-name-cell-text') || el;
                 if (arText) targetElement.innerHTML = arText;
             });
         } else if (lang === 'en') {
@@ -622,7 +634,7 @@
                         el.textContent = LANGUAGE_MAP['en'][key]; 
                     } else {
                         // 🆕 التأكد من تحديث النص داخل span فقط
-                        const targetElement = el.querySelector('span') || el;
+                        const targetElement = el.querySelector('.gem-name-cell-text') || el;
                         targetElement.innerHTML = LANGUAGE_MAP['en'][key];
                     }
                 }
@@ -666,7 +678,7 @@
         // Store Arabic content from HTML into a data attribute before the first switch
         document.querySelectorAll('[data-key]').forEach(el => {
             // 🆕 التأكد من تخزين النص داخل span (إن وجد)
-            const targetElement = el.querySelector('span') || el;
+            const targetElement = el.querySelector('.gem-name-cell-text') || el;
             if (targetElement.innerHTML.trim()) {
                 el.setAttribute('data-ar-content', targetElement.innerHTML);
             }
