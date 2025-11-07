@@ -219,16 +219,17 @@
 
 /* ------------------------------------------------------------- */
 /* ** NEW: Mobile Active State Class (used by JavaScript) ** */
+/* ** (يستخدم التضبيط الأخير للتدريج الناعم) ** */
 /* ------------------------------------------------------------- */
 .mobile-active::after {
     opacity: 1 !important;
-    /* نسخ نفس التدرج المُعدَّل للموبايل (الأوسع والأكثر سلاسة) */
+    
     background-image: linear-gradient(to right,
         #111111 0%,
-        transparent 15%, /* التدريج الناعم المُصَحَّح */
-        var(--hover-color) 35%, 
-        var(--hover-color) 65%,
-        transparent 85%, /* التدريج الناعم المُصَحَّح */
+        transparent 5%, /* بداية التلاشي مبكراً (5%) */
+        var(--hover-color) 45%, /* نهاية التلاشي/بداية اللون الصلب (45%) */
+        var(--hover-color) 55%, /* نهاية اللون الصلب (55%) */
+        transparent 95%, /* نهاية التلاشي متأخراً (95%) */
         #111111 100%
     ) !important;
 }
@@ -261,14 +262,14 @@
                 gap: 0.5rem !important;
             }
 
-            /* ** Mobile Specific Gradient Fix (Also applies to :hover on small non-touch devices) ** */
+            /* ** Mobile Specific Gradient Fix (يستخدم التضبيط الأخير للتدريج الناعم) ** */
             .table-row-item:hover::after {
                 background-image: linear-gradient(to right,
                     #111111 0%,
-                    transparent 15%, /* نقاط توقف أوسع (للشاشات الضيقة) - تم التعديل هنا */
-                    var(--hover-color) 35%, 
-                    var(--hover-color) 65%,
-                    transparent 85%, 
+                    transparent 5%, /* بداية التلاشي مبكراً (5%) */
+                    var(--hover-color) 45%, /* نهاية التلاشي/بداية اللون الصلب (45%) */
+                    var(--hover-color) 55%, /* نهاية اللون الصلب (55%) */
+                    transparent 95%, /* نهاية التلاشي متأخراً (95%) */
                     #111111 100%
                 );
             }
