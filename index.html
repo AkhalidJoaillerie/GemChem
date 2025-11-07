@@ -242,18 +242,19 @@
     position: absolute;
     top: 50%;
     z-index: 1; /* الصورة خلف النص */
-    /* 🔴 تصحيح: إضافة right لضمان سلاسة الحركة في RTL */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out, right 0.3s ease-out;
+    /* إضافة left و right لضمان سلاسة الحركة في كلا الاتجاهين */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, left 0.3s ease-out, right 0.3s ease-out;
 }
 
-/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (RTL) */
+/* 🆕 الحالة الابتدائية: تحديد موضع الصورة قبل الحركة */
+/* (RTL) تبدأ من اليمين بإزاحة بسيطة للخارج */
 .rtl-layout .gem-image {
     right: 0; 
     transform: translate(10px, -50%); /* إزاحة أولية للخارج (يميناً) */
 }
-/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (LTR) */
+/* (LTR) تبدأ من اليسار بإزاحة بسيطة للخارج */
 .ltr-layout .gem-image {
-    left: 0;
+    left: 0; /* 🟡 إصلاح: يجب تحديد left هنا */
     transform: translate(-10px, -50%); /* إزاحة أولية للخارج (يساراً) */
 }
 
@@ -269,15 +270,16 @@
         height: 50px;
     }
     
-    /* 🟢 تصحيح الديسكتوب العربي: نستخدم right بدلًا من transform الأفقي */
+    /* 🟢 تصحيح الديسكتوب العربي: نستخدم right مع إلغاء الإزاحة الأفقية لـ transform */
     .rtl-layout .table-row-item:hover .gem-image {
-        right: 55px; /* تحديد الموضع النهائي 55px من اليمين */
+        right: 55px; /* الموضع النهائي من اليمين (50px حجم + 5px هامش) */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
-    /* (LTR) حركة الدخول */
+    /* 🟢 تصحيح الديسكتوب الإنجليزي: نستخدم left مع إلغاء الإزاحة الأفقية لـ transform */
     .ltr-layout .table-row-item:hover .gem-image {
-        transform: translate(55px, -50%); /* 50px حجم + 5px هامش */
+        left: 5px; /* الموضع النهائي من اليسار (0px موضع ابتدائي + 5px هامش) */
+        transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
     /* 2. إزاحة اسم الحجر للداخل عند التمرير */
@@ -304,15 +306,16 @@
         height: 40px;
     }
     
-    /* 🟢 تصحيح الموبايل العربي: نستخدم right بدلًا من transform الأفقي */
+    /* 🟢 تصحيح الموبايل العربي: نستخدم right مع إلغاء الإزاحة الأفقية لـ transform */
     .rtl-layout .table-row-item.mobile-active .gem-image {
-        right: 45px; /* تحديد الموضع النهائي 45px من اليمين */
+        right: 45px; /* الموضع النهائي من اليمين (40px حجم + 5px هامش) */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
-    /* (LTR) حركة الدخول */
+    /* 🟢 تصحيح الموبايل الإنجليزي: نستخدم left مع إلغاء الإزاحة الأفقية لـ transform */
     .ltr-layout .table-row-item.mobile-active .gem-image {
-        transform: translate(45px, -50%);
+        left: 5px; /* الموضع النهائي من اليسار (0px موضع ابتدائي + 5px هامش) */
+        transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
 
     /* 2. إزاحة اسم الحجر للداخل عند النقر */
