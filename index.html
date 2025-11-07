@@ -269,8 +269,8 @@
     }
     /* (RTL) حركة الدخول - تم التصحيح لـ right */
     .rtl-layout .table-row-item:hover .gem-image {
-        right: 55px; /* التصحيح: تحديد الموضع النهائي 55px من اليمين */
-        transform: translate(0, -50%); /* التصحيح: إلغاء الإزاحة الأفقية */
+        right: 55px; /* 1. تحديد الموضع النهائي من اليمين */
+        transform: translate(0, -50%); /* 2. إلغاء الإزاحة الأفقية لـ transform */
     }
     /* (LTR) حركة الدخول - تم التصحيح لقيمة إزاحة بسيطة */
     .ltr-layout .table-row-item:hover .gem-image {
@@ -303,7 +303,7 @@
     /* (RTL) حركة الدخول - تم التصحيح لـ right */
     .rtl-layout .table-row-item.mobile-active .gem-image {
         right: 45px; /* التصحيح: تحديد الموضع النهائي 45px من اليمين */
-        transform: translate(0, -50%); /* التصحيح: إلغاء الإزاحة الأفقية */
+        transform: translate(-45px, -50%); /* ⬅️ هذا هو الخطأ */
     }
     /* (LTR) حركة الدخول - تم التصحيح لقيمة إزاحة بسيطة */
     .ltr-layout .table-row-item.mobile-active .gem-image {
