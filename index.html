@@ -242,7 +242,8 @@
     position: absolute;
     top: 50%;
     z-index: 1; /* الصورة خلف النص */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    /* 🔴 تصحيح: إضافة right لضمان سلاسة الحركة في RTL */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, right 0.3s ease-out;
 }
 
 /* 🆕 (إصلاح 1) تحديد اتجاه الصورة (RTL) */
@@ -267,14 +268,16 @@
         width: 50px;
         height: 50px;
     }
-    /* (RTL) حركة الدخول - تم التصحيح لـ right */
+    
+    /* 🟢 تصحيح الديسكتوب العربي: نستخدم right بدلًا من transform الأفقي */
     .rtl-layout .table-row-item:hover .gem-image {
-        right: 55px; /* 1. تحديد الموضع النهائي من اليمين */
-        transform: translate(0, -50%); /* 2. إلغاء الإزاحة الأفقية لـ transform */
+        right: 55px; /* تحديد الموضع النهائي 55px من اليمين */
+        transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
-    /* (LTR) حركة الدخول - تم التصحيح لقيمة إزاحة بسيطة */
+    
+    /* (LTR) حركة الدخول */
     .ltr-layout .table-row-item:hover .gem-image {
-        transform: translate(5px, -50%); /* التصحيح: تحريك الصورة 5px فقط لوضعها على اليسار */
+        transform: translate(55px, -50%); /* 50px حجم + 5px هامش */
     }
     
     /* 2. إزاحة اسم الحجر للداخل عند التمرير */
@@ -300,14 +303,16 @@
         width: 40px;
         height: 40px;
     }
-    /* (RTL) حركة الدخول - تم التصحيح لـ right */
+    
+    /* 🟢 تصحيح الموبايل العربي: نستخدم right بدلًا من transform الأفقي */
     .rtl-layout .table-row-item.mobile-active .gem-image {
-        right: 45px; /* التصحيح: تحديد الموضع النهائي 45px من اليمين */
-        transform: translate(-45px, -50%); /* ⬅️ هذا هو الخطأ */
+        right: 45px; /* تحديد الموضع النهائي 45px من اليمين */
+        transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
-    /* (LTR) حركة الدخول - تم التصحيح لقيمة إزاحة بسيطة */
+    
+    /* (LTR) حركة الدخول */
     .ltr-layout .table-row-item.mobile-active .gem-image {
-        transform: translate(5px, -50%); /* التصحيح: تحريك الصورة 5px فقط لوضعها على اليسار */
+        transform: translate(45px, -50%);
     }
 
     /* 2. إزاحة اسم الحجر للداخل عند النقر */
