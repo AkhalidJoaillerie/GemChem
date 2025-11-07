@@ -222,7 +222,7 @@
 /* ******************************************************************************** */
 
 /* ========================================================= */
-/* 🆕 قواعد حركة الصورة (المرحلة 1) */
+/* 🆕 قواعد حركة الصورة */
 /* ========================================================= */
 
 /* 🆕 النص داخل خلية الاسم (للسماح بالتحريك) */
@@ -243,19 +243,19 @@
     top: 50%;
     z-index: 1; /* الصورة خلف النص */
     /* إضافة left و right لضمان سلاسة الحركة في كلا الاتجاهين */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out, left 0.3s ease-out, right 0.3s ease-out;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, left 0.3s ease-out, right 0.3s ease-out; 
 }
 
 /* 🆕 الحالة الابتدائية: تحديد موضع الصورة قبل الحركة */
-/* (RTL) تبدأ من اليمين بإزاحة بسيطة للخارج */
+/* (RTL) تبدأ من اليمين بإزاحة للخارج */
 .rtl-layout .gem-image {
     right: 0; 
-    transform: translate(100%, -50%); /* 🟡 تم تحديث: استخدام 100% لإخفاء الصورة تماماً في البداية */
+    transform: translate(100%, -50%); /* إخفاء الصورة تماماً في البداية */
 }
-/* (LTR) تبدأ من اليسار بإزاحة بسيطة للخارج */
+/* (LTR) تبدأ من اليسار بإزاحة للخارج */
 .ltr-layout .gem-image {
     left: 0; 
-    transform: translate(-100%, -50%); /* 🟡 تم تحديث: استخدام -100% لإخفاء الصورة تماماً في البداية */
+    transform: translate(-100%, -50%); /* إخفاء الصورة تماماً في البداية */
 }
 
 /* --------------------------------------------------------- */
@@ -270,26 +270,26 @@
         height: 50px;
     }
     
-    /* 🟢 تصحيح الديسكتوب العربي: يجب أن يكون right: 5px فقط */
+    /* 🏆 تثبيت موضع الصورة النهائي (RTL) */
     .rtl-layout .table-row-item:hover .gem-image {
-        right: 5px; /* 🏆 التصحيح النهائي: 5 بكسل من الحافة اليمين */
+        right: 5px; /* تثبيت عند 5 بكسل من الحافة اليمين */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
-    /* 🟢 تصحيح الديسكتوب الإنجليزي: يجب أن يكون left: 5px فقط */
+    /* 🏆 تثبيت موضع الصورة النهائي (LTR) */
     .ltr-layout .table-row-item:hover .gem-image {
-        left: 5px; /* 🏆 التصحيح النهائي: 5 بكسل من الحافة اليسار */
+        left: 5px; /* تثبيت عند 5 بكسل من الحافة اليسار */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
-    /* 2. إزاحة اسم الحجر للداخل عند التمرير */
+    /* 2. إزاحة اسم الحجر للداخل عند التمرير (تم التعديل لـ 75px لإضافة مسافة 25px) */
     /* (RTL) إزاحة الاسم */
     .rtl-layout .table-row-item:hover .gem-name-cell-text {
-        transform: translateX(-55px); /* تحريك النص بعيداً عن الصورة (50px حجم + 5px هامش) */
+        transform: translateX(-75px); /* تحريك النص بعيداً عن الصورة (50px حجم + 25px هامش) */
     }
     /* (LTR) إزاحة الاسم */
     .ltr-layout .table-row-item:hover .gem-name-cell-text {
-        transform: translateX(55px);
+        transform: translateX(75px); /* تحريك النص بعيداً عن الصورة (50px حجم + 25px هامش) */
     }
 }
 
@@ -306,37 +306,37 @@
         height: 40px;
     }
     
-    /* 🟢 تصحيح الموبايل العربي: يجب أن يكون right: 5px فقط */
+    /* 🏆 تثبيت موضع الصورة النهائي (RTL) */
     .rtl-layout .table-row-item.mobile-active .gem-image {
-        right: 5px; /* 🏆 التصحيح النهائي: 5 بكسل من الحافة اليمين */
+        right: 5px; /* تثبيت عند 5 بكسل من الحافة اليمين */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
     
-    /* 🟢 تصحيح الموبايل الإنجليزي: يجب أن يكون left: 5px فقط */
+    /* 🏆 تثبيت موضع الصورة النهائي (LTR) */
     .ltr-layout .table-row-item.mobile-active .gem-image {
-        left: 5px; /* 🏆 التصحيح النهائي: 5 بكسل من الحافة اليسار */
+        left: 5px; /* تثبيت عند 5 بكسل من الحافة اليسار */
         transform: translate(0, -50%); /* إلغاء الإزاحة الأفقية */
     }
 
-    /* 2. إزاحة اسم الحجر للداخل عند النقر */
+    /* 2. إزاحة اسم الحجر للداخل عند النقر (تم التعديل لـ 60px لإضافة مسافة 20px) */
     /* (RTL) إزاحة الاسم */
     .rtl-layout .table-row-item.mobile-active .gem-name-cell-text {
-        transform: translateX(-45px); /* تحريك النص بعيداً عن الصورة (40px حجم + 5px هامش) */
+        transform: translateX(-60px); /* تحريك النص بعيداً عن الصورة (40px حجم + 20px هامش) */
     }
     /* (LTR) إزاحة الاسم */
     .ltr-layout .table-row-item.mobile-active .gem-name-cell-text {
-        transform: translateX(45px);
+        transform: translateX(60px); /* تحريك النص بعيداً عن الصورة (40px حجم + 20px هامش) */
     }
     
-    /* 3. 🆕 (إصلاح 6) إلغاء تأثير الـ Hover تماماً على الموبايل */
+    /* 3. إلغاء تأثير الـ Hover تماماً على الموبايل */
     .table-row-item:hover::after {
-        opacity: 0 !important; /* إلغاء تفعيل الـ Hover الافتراضي */
+        opacity: 0 !important; 
     }
 }
 
 
 /* --------------------------------------------------------- */
-/* 🖼️ مسارات الصور (تم تصحيح المسارات - افترض أنها في نفس المجلد) */
+/* 🖼️ مسارات الصور */
 /* --------------------------------------------------------- */
 .table-row-item[data-gem-name="diamond"] .gem-image { background-image: url('Diamond.png'); }
 .table-row-item[data-gem-name="ruby"] .gem-image { background-image: url('Ruby.png'); }
@@ -358,12 +358,6 @@
             gap: 0.5rem !important;
         }
 
-        /* 🆕 (إصلاح 6) إلغاء تفعيل الـ Hover الخاص بالتدريج القديم على الموبايل */
-        .table-row-item:hover::after {
-            /* تم نقل هذا الكود ليكون 0 (ملغي) في القاعدة السابقة */
-            opacity: 0 !important;
-        }
-        
         .header-row {
             display: none !important; 
         }
