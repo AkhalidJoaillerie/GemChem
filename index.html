@@ -150,10 +150,10 @@
         /* Explicitly apply text-align: inherit to all non-formula headers and content cells
            to ensure they follow the body's direction (left or right aligned). */
         .header-row > div, 
-        .cell-gemstone, .cell-group, .cell-notes {
+        .cell-gemstone, .cell-group, .cell-notes, .cell-formula { /* ** تم إضافة .cell-formula هنا - هذا هو الإصلاح ** */
             text-align: inherit !important; 
             
-            /* ** التعديل الثاني: رفع عمق النص ليكون فوق تأثير التلاشي ** */
+            /* ** التعديلات الجديدة لـ z-index ** */
             position: relative; /* يجب أن تكون الخلايا ذات موضع نسبي */
             z-index: 2; /* نجعلها أعلى من تأثير التلاشي (::after) */
         }
