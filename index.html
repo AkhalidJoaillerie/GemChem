@@ -199,34 +199,25 @@
     transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
 
-/* ** تعريف الضوضاء الناتجة عن CSS لاستخدامها في كلا التأثيرين ** */
-.css-noise {
-    /* تطبيق طبقة الضوضاء أولاً لكسر التدرج الحاد (Anti-Banding) */
-    background-image: 
-        repeating-radial-gradient(circle at center, 
-            rgba(255, 255, 255, 0.03) 0.5px, 
-            transparent 1px
-        );
-}
 
 /* ------------------------------------------------------------- */
-/* ** Mobile Active State Class (استناداً إلى قيمك الجديدة 0%, 40%, 50%, 100%) ** */
+/* ** Mobile Active State Class (قيم التلاشي الأضيق: 0%, 40%, 50%, 100%) ** */
 /* ------------------------------------------------------------- */
 .mobile-active::after {
     opacity: 1 !important;
     
     background-image: 
-        /* الضوضاء الناتجة عن CSS */
+        /* 1. الضوضاء الناتجة عن CSS (Anti-Banding) */
         repeating-radial-gradient(circle at center, 
             rgba(255, 255, 255, 0.03) 0.5px, 
             transparent 1px
         ), 
-        /* التدريج الأساسي */
+        /* 2. التدريج الأضيق (Mobile) */
         linear-gradient(to right,
-            transparent 0%,      /* نقطة بداية التلاشي */
+            transparent 0%,      /* بداية التلاشي */
             var(--hover-color) 40%, /* نهاية التلاشي/بداية اللون الصلب */
             var(--hover-color) 50%, /* نهاية اللون الصلب */
-            transparent 100%       /* نقطة نهاية التلاشي */
+            transparent 100%       /* نهاية التلاشي */
         ) !important;
         
     background-blend-mode: overlay, normal !important;
@@ -235,20 +226,21 @@
 
 
 /* تطبيق التدرج اللوني عند التمرير (Hover) - الإعداد الافتراضي للديسكتوب */
+/* ** (قيم التلاشي الأوسع الأصلية: 0%, 20%, 80%, 100%) ** */
 .table-row-item:hover::after {
     opacity: 1; /* يظهر العنصر الزائف عند التمرير */
     
     background-image: 
-        /* الضوضاء الناتجة عن CSS */
+        /* 1. الضوضاء الناتجة عن CSS (Anti-Banding) */
         repeating-radial-gradient(circle at center, 
             rgba(255, 255, 255, 0.03) 0.5px, 
             transparent 1px
         ), 
-        /* التدريج الأساسي */
+        /* 2. التدريج الأوسع (Desktop) */
         linear-gradient(to right,
             transparent 0%, 
-            var(--hover-color) 40%, 
-            var(--hover-color) 50%,
+            var(--hover-color) 20%, 
+            var(--hover-color) 80%,
             transparent 100% 
         );
         
@@ -410,7 +402,7 @@
             // Since this object is empty, we rely on data-ar-content
         },
         'en': {
-            'browser_title': 'GemChem', // *NEW LINE* : هذا لترجمة عنوان المتصفح إلى GemChem
+            'browser_title': 'GemChem',
             'title': 'Gemstone Chemistry Overview',
             'gemstone': 'Gemstone',
             'formula': 'Chemical Formula',
