@@ -77,6 +77,20 @@
             color: #ffffff !important;
             overscroll-behavior-y: contain;
         }
+
+        img {
+    /* منع تحديد النص/الصورة */
+    user-select: none;
+    
+    /* منع سحب الصورة (للمتصفحات المبنية على Chromium) */
+    -webkit-user-drag: none; 
+    
+    /* منع سحب الصورة (للتوافق العام) */
+    user-drag: none; 
+    
+    /* منع ظهور قوائم الأدوات المخصصة التي تظهر عند النقر على الصور في بعض المتصفحات المحمولة */
+    pointer-events: none; 
+}
         
         .footer-logo {
          filter: invert(1) !important; 
@@ -422,6 +436,18 @@
         }
         updateTextDirection(lang);
     }
+
+    // الاستماع لحدث النقر الأيمن/الضغط المطول على كامل المستند
+    document.addEventListener('contextmenu', function(event) {
+        
+        // التحقق مما إذا كان العنصر الذي تم النقر عليه هو صورة (<img>)
+        if (event.target.tagName === 'IMG') {
+            
+            // منع السلوك الافتراضي (وهو ظهور قائمة "حفظ الصورة باسم")
+            event.preventDefault();
+        }
+        // إذا لم يكن العنصر صورة، يتم تجاهل الأمر والسماح بظهور قائمة "نسخ" للنص.
+    });
 
     // ********** كود شاشة التحميل (تم وضعه في النطاق العام للعمل بشكل صحيح) **********
     function hidePreloader() {
