@@ -391,13 +391,9 @@
             // To switch to Arabic, we retrieve the content from the data-ar-content attribute
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
-                if (el.tagName === 'TITLE') {
-                    const arText = 'نظرة عامة على كيمياء الأحجار الكريمة | بأسلوب بولغاري الفاخر';
-                    el.textContent = arText;
-                } else {
-                    const arText = el.getAttribute('data-ar-content');
-                    if (arText) el.innerHTML = arText;
-                }
+                // لا يوجد شرط خاص بالـ TITLE. سيستخدم el.getAttribute('data-ar-content') لجميع العناصر.
+                const arText = el.getAttribute('data-ar-content');
+                if (arText) el.innerHTML = arText;
             });
         } else if (lang === 'en') {
             // To switch to English, we use the content from the LANGUAGE_MAP
@@ -405,7 +401,8 @@
                 const key = el.getAttribute('data-key');
                 if (LANGUAGE_MAP['en'][key]) {
                     if (el.tagName === 'TITLE') {
-                        el.textContent = LANGUAGE_MAP['en'][key] + ' | Luxury Style';
+                        // **تم تصحيح العنوان ليصبح GemChem فقط**
+                        el.textContent = LANGUAGE_MAP['en'][key]; 
                     } else {
                         el.innerHTML = LANGUAGE_MAP['en'][key];
                     }
