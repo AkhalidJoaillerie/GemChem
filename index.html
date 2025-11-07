@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" href="gem-favicon.png" sizes="32x32">
     <link rel="shortcut icon" href="gem-favicon.png">
     
-    <meta property="og:title" content="GemChem">
+    <meta property="og:title" content="Gemstone Chemistry Overview">
     <meta property="og:description" content="A brief overview of the chemical composition and mineral groups of common gemstones.">
     <meta property="og:type" content="website">
     
@@ -133,13 +133,8 @@
             z-index: 2; 
         }
         
-        /* 🆕 CRITICAL FIX 1: Make Name Cell Relative for Image Positioning */
+        /* 🆕 جعل خلية الاسم نسبية لاحتواء الصورة */
         .cell-gemstone {
-            position: relative !important;
-        }
-        
-        /* 🆕 جعل خلية الملاحظات نسبية لاحتواء زر "أكمل القراءة" */
-        .cell-notes {
             position: relative !important;
         }
         
@@ -227,50 +222,48 @@
 /* ******************************************************************************** */
 
 /* ========================================================= */
-/* 🆕 قواعد حركة الصورة والملاحظات الجديدة (FIXED) */
+/* 🆕 قواعد حركة الصورة (المرحلة 2) */
 /* ========================================================= */
 
-/* 🆕 النص داخل خلية الاسم (span) */
+/* 🆕 النص داخل خلية الاسم */
 .gem-name-cell-text {
     position: relative;
-    z-index: 2; /* Text above image */
-    display: inline-block; /* Allows transformation and alignment with image */
+    z-index: 2; /* النص فوق الصورة */
+    display: inline-block; /* للسماح بتطبيق التحريك */
     transition: transform 0.3s ease-out;
-    /* CRITICAL FIX 2: Prevents text overlap with adjacent cells */
+    
+    /* 🔴 حل مشكلة التداخل 1/2: منع التفاف النص */
     white-space: nowrap; 
 }
 
 /* 🆕 إخفاء الصورة في الحالة الافتراضية (مخفية وجاهزة للحركة) */
 .table-row-item .gem-image {
-    /* ✨ التعديل الحاسم: إضافة العرض والارتفاع لمنع الانهيار (0x0) */
-    width: 50px;
-    height: 50px;
-    
     opacity: 0;
     background-size: cover;
     background-position: center;
     border-radius: 50%;
     position: absolute;
     top: 50%;
-    z-index: 1; /* Image below text */
+    z-index: 1; /* الصورة خلف النص */
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    
+    /* 🔴 حل مشكلة التداخل 2/2: ضمان أن الصورة لا يمكن النقر عليها وتجاهلها في تخطيط النص */
     pointer-events: none;
 }
 
-/* 🆕 (RTL Initial Position) - Image is absolute child of the relative cell-gemstone */
-.rtl-layout .table-row-item .gem-image {
+/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (RTL) - لا يزال position: absolute */
+.rtl-layout .gem-image {
+    /* 🔴 تغيير: لضمان المحاذاة مع النص وليس الخلية، يتم وضعها عند 0 والتحريك منها */
     right: 0; 
-    /* Start 50% of its width outside the right edge of the text, aligned with it */
+    /* 🔴 تغيير: يتم ضبط الإزاحة الأولية لتبدأ الصورة من يمين النص مباشرة (50% من حجمها) */
     transform: translate(50%, -50%); 
 }
-
-/* 🆕 الملاحظات: الإعداد الأساسي لعدم التقييد في الديسكتوب */
-.table-row-item .notes-content {
-    max-height: 500px; /* رقم كبير افتراضي */
-    mask-image: none !important;
-    transition: max-height 0.4s ease-in-out; 
+/* 🆕 (إصلاح 1) تحديد اتجاه الصورة (LTR) - لا يزال position: absolute */
+.ltr-layout .gem-image {
+    left: 0;
+    /* 🔴 تغيير: يتم ضبط الإزاحة الأولية لتبدأ الصورة من يسار النص مباشرة (50% من حجمها) */
+    transform: translate(-50%, -50%); 
 }
-
 
 /* --------------------------------------------------------- */
 /* 💻 قواعد سطح المكتب (Desktop) - حركة التمرير 50px */
@@ -280,18 +273,28 @@
     /* 1. إظهار وتحريك الصورة عند التمرير (Hover) - 50px */
     .table-row-item:hover .gem-image {
         opacity: 1;
-        /* لا حاجة لتحديد 50px هنا مجدداً لأنها معرفة في القاعدة الأساسية */
+        width: 50px;
+        height: 50px;
     }
     /* (RTL) حركة الدخول */
     .rtl-layout .table-row-item:hover .gem-image {
-        /* Move away from text: Initial offset (50%) + movement (55px) */
+        /* 🔴 التعديل الجذري: نزيد الإزاحة من 50% إلى 50% + 55px (لتحريكها بعيداً عن الاسم) */
         transform: translate(calc(50% + 55px), -50%); 
+    }
+    /* (LTR) حركة الدخول */
+    .ltr-layout .table-row-item:hover .gem-image {
+        /* 🔴 التعديل الجذري: نزيد الإزاحة من -50% إلى -50% - 55px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(-50% - 55px), -50%); 
     }
     
     /* 2. إزاحة اسم الحجر للداخل عند التمرير */
     /* (RTL) إزاحة الاسم */
     .rtl-layout .table-row-item:hover .gem-name-cell-text {
         transform: translateX(-55px);
+    }
+    /* (LTR) إزاحة الاسم */
+    .ltr-layout .table-row-item:hover .gem-name-cell-text {
+        transform: translateX(55px);
     }
 }
 
@@ -301,46 +304,7 @@
 /* --------------------------------------------------------- */
 @media (max-width: 767px) { 
     
-    /* 1. الملاحظات: إخفاء المحتوى الزائد وتطبيق التلاشي (Fading) */
-    .table-row-item .notes-content {
-        max-height: 4em; /* تقييد الارتفاع (حوالي 3 سطور) */
-        /* إنشاء تأثير التلاشي للأسفل (يعمل كمؤشر "أنا هنا") */
-        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        /* التأكد من أن النص المخفي لا يمكن الوصول إليه */
-        overflow: hidden; 
-    }
-
-    /* 2. 🆕 إضافة زر "أكمل القراءة" (مشابه لـ Quora) */
-    .continue-reading {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding-top: 1rem;
-        padding-bottom: 0.5rem;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: #B89A6A; /* لون ذهبي */
-        /* خلفية متدرجة (شفاف في الأعلى، لون الخلفية في الأسفل) لإخفاء النص تحته */
-        background-image: linear-gradient(to bottom, rgba(17,17,17,0), #111111 60%);
-        z-index: 4; /* فوق النص */
-        transition: opacity 0.3s ease;
-    }
-
-    /* 3. إظهار كامل للملاحظات عند التفعيل (النقر) */
-    .table-row-item.mobile-active .notes-content {
-        max-height: 500px; /* رقم كبير يكفي لعرض كل المحتوى */
-        mask-image: none; /* إزالة التلاشي */
-    }
-
-    /* 4. إخفاء زر "أكمل القراءة" عند النقر */
-    .table-row-item.mobile-active .continue-reading {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    /* 5. إظهار وتحريك الصورة عند النقر (باستخدام .mobile-active) - 40px */
+    /* 1. إظهار وتحريك الصورة عند النقر (باستخدام .mobile-active) - 40px */
     .table-row-item.mobile-active .gem-image {
         opacity: 1;
         width: 40px;
@@ -348,17 +312,26 @@
     }
     /* (RTL) حركة الدخول */
     .rtl-layout .table-row-item.mobile-active .gem-image {
-        /* Move away from text: Initial offset (50%) + movement (45px) */
+        /* 🔴 تعديل: نزيد الإزاحة من 50% إلى 50% + 45px (لتحريكها بعيداً عن الاسم) */
         transform: translate(calc(50% + 45px), -50%);
     }
+    /* (LTR) حركة الدخول */
+    .ltr-layout .table-row-item.mobile-active .gem-image {
+        /* 🔴 تعديل: نزيد الإزاحة من -50% إلى -50% - 45px (لتحريكها بعيداً عن الاسم) */
+        transform: translate(calc(-50% - 45px), -50%);
+    }
 
-    /* 6. إزاحة اسم الحجر للداخل عند النقر */
+    /* 2. إزاحة اسم الحجر للداخل عند النقر */
+    /* (RTL) إزاحة الاسم */
     .rtl-layout .table-row-item.mobile-active .gem-name-cell-text {
-        /* (RTL) إزاحة الاسم لليسار (rtl) بمقدار 45px */
         transform: translateX(-45px);
     }
+    /* (LTR) إزاحة الاسم */
+    .ltr-layout .table-row-item.mobile-active .gem-name-cell-text {
+        transform: translateX(45px);
+    }
     
-    /* 7. إلغاء تأثير الـ Hover تماماً على الموبايل */
+    /* 3. إلغاء تأثير الـ Hover تماماً على الموبايل */
     .table-row-item:hover::after {
         opacity: 0 !important; 
     }
@@ -472,6 +445,7 @@
         </div>
         
 <div class="divide-y divide-gray-900">
+    
     <div class="table-row-item transition duration-300" style="--hover-color: #2e2e2e80;" data-gem-name="diamond">
         
         <div class="cell-gemstone color-light-text text-lg" data-key="diamond_name">
@@ -482,21 +456,20 @@
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note">C (كربون نقي)</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="diamond_group">عناصر أصلية</div>
         
-        <div class="cell-notes color-light-text text-sm font-light">
-            <div class="notes-content" data-key="diamond_notes">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الألماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
-            <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div> </div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes">
+            يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الألماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.
+        </div>
     </div>
 
     <div class="table-row-item transition duration-300" style="--hover-color: #3d1a1a80;" data-gem-name="ruby">
         <div class="cell-gemstone color-light-text text-lg" data-key="ruby_name">
-             <div class="gem-image pointer-events-none"></div>
-             <span class="gem-name-cell-text">الزفير (الياقوت الأحمر)</span>
+            <div class="gem-image pointer-events-none"></div>
+            <span class="gem-name-cell-text">الزفير (الياقوت الأحمر)</span>
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="ruby_group">كُرُندُم</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-             <div class="notes-content" data-key="ruby_notes">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
-             <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes">
+             أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.
         </div>
     </div>
 
@@ -507,9 +480,8 @@
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="sapphire_group">كُرُندُم</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-            <div class="notes-content" data-key="sapphire_notes">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
-            <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes">
+            متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.
         </div>
     </div>
 
@@ -520,9 +492,8 @@
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Be₃Al₂(SiO₃)₆</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="emerald_group">بَرِيل</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-            <div class="notes-content" data-key="emerald_notes">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
-            <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes">
+            سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.
         </div>
     </div>
     
@@ -533,9 +504,8 @@
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">SiO₂</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="amethyst_group">كُوارتز</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-             <div class="notes-content" data-key="amethyst_notes">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
-             <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes">
+             نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.
         </div>
     </div>
 
@@ -546,9 +516,8 @@
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂SiO₄(F, OH)₂</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="topaz_group">سيلكات</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-            <div class="notes-content" data-key="topaz_notes">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
-            <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes">
+            سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.
         </div>
     </div>
 
@@ -559,9 +528,8 @@
         </div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">(Mg, Fe)₂SiO₄</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="peridot_group">أوليفين</div>
-        <div class="cell-notes color-light-text text-sm font-light">
-            <div class="notes-content" data-key="peridot_notes">سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.</div>
-            <div class="continue-reading md:hidden" data-key="continue_reading">أكمل القراءة</div>
+        <div class="cell-notes color-light-text text-sm font-light" data-key="peridot_notes">
+            سيلكات المغنيسيوم والحديد. اللون الأخضر الزيتوني المميز هو جوهري في التركيب الكيميائي للحجر، وسببه الحديد (Fe) في المكون الرئيسي، على عكس الألوان التي تعتمد على الشوائب.
         </div>
     </div>
 </div>
@@ -579,13 +547,12 @@
             // Since this object is empty, we rely on data-ar-content
         },
         'en': {
-            'browser_title': 'GemChem',
+            'browser_title': 'GemChem', 
             'title': 'Gemstone Chemistry Overview',
             'gemstone': 'Gemstone',
             'formula': 'Chemical Formula',
             'group': 'Mineral Group',
             'notes': 'Chemical Structure Notes',
-            'continue_reading': 'Continue Reading', // 🆕 إضافة ترجمة لزر الموبايل
 
             // Content
             'diamond_name': 'Diamond',
@@ -654,15 +621,9 @@
                 const key = el.getAttribute('data-key');
                 const arText = el.getAttribute('data-ar-content');
                 
-                // 🆕 التعديل: استهداف الـ span داخل خلية الاسم لتحديث المحتوى فقط
-                const targetElement = el.classList.contains('cell-gemstone') ? el.querySelector('.gem-name-cell-text') : el; 
-                
-                if (arText && targetElement) {
-                    targetElement.innerHTML = arText;
-                } else if (arText && el.tagName !== 'TITLE') {
-                    // For regular elements like headers, formula notes, etc.
-                    el.innerHTML = arText;
-                }
+                // 🆕 التأكد من تحديث النص داخل span فقط
+                const targetElement = el.querySelector('.gem-name-cell-text') || el;
+                if (arText) targetElement.innerHTML = arText;
             });
         } else if (lang === 'en') {
             // To switch to English, we use the content from the LANGUAGE_MAP
@@ -672,15 +633,9 @@
                     if (el.tagName === 'TITLE') {
                         el.textContent = LANGUAGE_MAP['en'][key]; 
                     } else {
-                        // 🆕 التعديل: استهداف الـ span داخل خلية الاسم لتحديث المحتوى فقط
-                        const targetElement = el.classList.contains('cell-gemstone') ? el.querySelector('.gem-name-cell-text') : el; 
-                        
-                        if (targetElement) {
-                            targetElement.innerHTML = LANGUAGE_MAP['en'][key];
-                        } else {
-                            // For regular elements like headers, formula notes, etc.
-                            el.innerHTML = LANGUAGE_MAP['en'][key];
-                        }
+                        // 🆕 التأكد من تحديث النص داخل span فقط
+                        const targetElement = el.querySelector('.gem-name-cell-text') || el;
+                        targetElement.innerHTML = LANGUAGE_MAP['en'][key];
                     }
                 }
             });
@@ -722,15 +677,11 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Store Arabic content from HTML into a data attribute before the first switch
         document.querySelectorAll('[data-key]').forEach(el => {
-            // 🆕 التعديل: تخزين المحتوى من الـ span داخل خلية الاسم (إن وجد)
-            const targetElement = el.classList.contains('cell-gemstone') ? el.querySelector('.gem-name-cell-text') : el; 
-            
-            if (targetElement && targetElement.innerHTML.trim()) {
+            // 🆕 التأكد من تخزين النص داخل span (إن وجد)
+            const targetElement = el.querySelector('.gem-name-cell-text') || el;
+            if (targetElement.innerHTML.trim()) {
                 el.setAttribute('data-ar-content', targetElement.innerHTML);
-            } else if (el.innerHTML.trim() && !el.classList.contains('cell-gemstone')) {
-                 el.setAttribute('data-ar-content', el.innerHTML);
             }
-
         });
         
         // Also explicitly set the formula divs to store their complex Arabic content 
