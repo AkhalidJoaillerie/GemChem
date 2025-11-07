@@ -140,6 +140,10 @@
             display: grid !important;
             grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
             gap: 2rem !important; 
+            
+            /* ************ التعديل من الخطوة 1.A ************ */
+            position: relative; /* يجب أن يكون الموضع نسبيًا */
+            overflow: hidden; /* لمنع تجاوز محتوى التدرج عن حدود الصف */
         }
         
         /* Explicitly apply text-align: inherit to all non-formula headers and content cells
@@ -191,30 +195,38 @@
         }
         /* *************************************************************** */
 
-/* ********** تأثيرات HOVER المخصصة حسب لون الحجر الكريم ********** */
+/* ********** كود تأثير التلاشي عند التمرير (Fading Hover Effect) ********** */
+/* ********** (حل محل الأكواد القديمة المحذوفة) ********** */
 
-.hover-diamond:hover {
-    background-color: #2e2e2e66 !important; /* رمادي داكن ناعم (لألماس) */
+/* العنصر الزائف (::after) لإنشاء تأثير الـ hover */
+.table-row-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* يبدأ شفافاً بالكامل */
+    pointer-events: none;
+    z-index: 1; /* يجب أن يكون خلف النصوص لكن أمام الخلفية الأساسية */
+    transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
-.hover-ruby:hover {
-    background-color: #3d1a1a66 !important; /* أحمر داكن (للياقوت الأحمر) */
+
+/* تطبيق التدرج اللوني عند التمرير (Hover) */
+.table-row-item:hover::after {
+    opacity: 1; /* يظهر العنصر الزائف عند التمرير */
+    
+    /* استخدام متغير اللون (يتم تعريفه في HTML) */
+    background-image: linear-gradient(to right,
+        #111111 0%, /* تلاشي من الخلفية (أسود) */
+        transparent 5%, /* شفاف تماماً عند 5% (بداية الوضوح) */
+        var(--hover-color) 20%, /* اللون المخصص يظهر في المنتصف (20% - 80%) */
+        var(--hover-color) 80%,
+        transparent 95%, /* شفاف تماماً عند 95% (نهاية الوضوح) */
+        #111111 100% /* تلاشي إلى الخلفية (أسود) */
+    );
 }
-.hover-sapphire:hover {
-    background-color: #1a1a3d66 !important; /* أزرق داكن (للياقوت الأزرق) */
-}
-.hover-emerald:hover {
-    background-color: #1a3d1a66 !important; /* أخضر داكن (للزمرد) */
-}
-.hover-amethyst:hover {
-    background-color: #3d1a3d66 !important; /* أرجواني داكن (للجمشت) */
-}
-.hover-topaz:hover {
-    background-color: #3d3d1a66 !important; /* زيتوني داكن/أصفر خافت (للتوباز) */
-}
-.hover-peridot:hover {
-    background-color: #2f3d1a66 !important; /* أخضر زيتوني داكن (للزبرجد) */
-}
-/* ***************************************************************** */
+/* ******************************************************************************** */
         
         /* Responsive grid adjustments */
         @media (max-width: 768px) {
@@ -305,49 +317,49 @@
         </div>
         
 <div class="divide-y divide-gray-900">
-    <div class="table-row-item hover-diamond transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #2e2e2e80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="diamond_name">الألماس</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0" data-key="diamond_formula_note">C (كربون نقي)</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="diamond_group">عناصر أصلية</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="diamond_notes">يتكون من شبكة بلورية مكعبة من الكربون النقي، حيث ترتبط كل ذرة كربون تساهميًا بأربع ذرات مجاورة. يمنح هذا التركيب الألماس صلابته القصوى (10 على مقياس موس). الشوائب مثل النيتروجين (الأصفر) أو البورون (الأزرق) هي سبب اللون.</div>
     </div>
 
-    <div class="table-row-item hover-ruby transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #3d1a1a80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="ruby_name">الزفير (الياقوت الأحمر)</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="ruby_group">كُرُندُم</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="ruby_notes">أكسيد الألومنيوم، بتركيب بلوري ثلاثي. اللون الأحمر اللامع يأتي من أيونات الكروم النادرة (Cr<sup>3+</sup>) التي تحل محل الألومنيوم (Al<sup>3+</sup>) في الشبكة.</div>
     </div>
 
-    <div class="table-row-item hover-sapphire transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #1a1a3d80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="sapphire_name">الياقوت الأزرق (السفير)</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂O₃</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="sapphire_group">كُرُندُم</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="sapphire_notes">متطابق كيميائيًا مع الزفير (Al₂O₃). الألوان الأخرى (باستثناء الأحمر) تأتي من عناصر نزرة مختلفة: الأزرق من الحديد (Fe) والتيتانيوم (Ti). وتنتج العناصر الأخرى أصنافًا بنفسجية وصفراء وخضراء.</div>
     </div>
 
-    <div class="table-row-item hover-emerald transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #1a3d1a80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="emerald_name">الزمرد</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Be₃Al₂(SiO₃)₆</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="emerald_group">بَرِيل</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="emerald_notes">سيلكات الألومنيوم والبريليوم الحلقية. اللون الأخضر الداكن يأتي من الكروم النزر (Cr) أو أحيانًا الفاناديوم (V) الذي يحل محل الألومنيوم في التركيب السيلكاتي الحلقي.</div>
     </div>
     
-    <div class="table-row-item hover-amethyst transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #3d1a3d80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="amethyst_name">الأميثيست (الجمشت)</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">SiO₂</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="amethyst_group">كُوارتز</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="amethyst_notes">نوع من الكوارتز (ثاني أكسيد السيليكون). اللون الأرجواني يأتي من شوائب الحديد (Fe<sup>3+</sup>) داخل التركيب البلوري، المعرض للإشعاع الطبيعي.</div>
     </div>
 
-    <div class="table-row-item hover-topaz transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #3d3d1a80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="topaz_name">التوباز</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">Al₂SiO₄(F, OH)₂</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="topaz_group">سيلكات</div>
         <div class="cell-notes color-light-text text-sm font-light" data-key="topaz_notes">سيلكات الألومنيوم تحتوي على مجموعات الفلور (F) و/أو الهيدروكسيد (OH). التوباز النقي عديم اللون. الألوان (الأزرق، الأصفر، الوردي) ناتجة عن عيوب ذرية أو عناصر نزرة محددة.</div>
     </div>
 
-    <div class="table-row-item hover-peridot transition duration-300">
+    <div class="table-row-item transition duration-300" style="--hover-color: #2f3d1a80;">
         <div class="cell-gemstone color-light-text text-lg" data-key="peridot_name">الزبرجد</div>
         <div class="cell-formula formula-text"><div class="mx-auto md:mx-0">(Mg, Fe)₂SiO₄</div></div>
         <div class="cell-group color-light-text text-sm font-light capitalize tracking-wider" data-key="peridot_group">أوليفين</div>
