@@ -141,21 +141,22 @@
             grid-template-columns: 1.2fr 1fr 1fr 2fr !important; 
             gap: 2rem !important; 
             
-            /* ** التعديل الأول: الصف هو المرجع والعمق الأساسي ** */
+            /* ** مشكلة الحساسية على الموبايل: تم الإصلاح هنا ** */
             position: relative;
             overflow: hidden;
-            z-index: 1; /* يجب أن يكون الصف نفسه هو نقطة البداية (1) */
+            z-index: 1; 
+            touch-action: manipulation; /* يجعل الـ Hover أكثر استجابة للمس أثناء التمرير */
         }
         
         /* Explicitly apply text-align: inherit to all non-formula headers and content cells
            to ensure they follow the body's direction (left or right aligned). */
         .header-row > div, 
-        .cell-gemstone, .cell-group, .cell-notes, .cell-formula { /* ** تم إضافة .cell-formula هنا - هذا هو الإصلاح ** */
+        .cell-gemstone, .cell-group, .cell-notes, .cell-formula { 
             text-align: inherit !important; 
             
-            /* ** التعديلات الجديدة لـ z-index ** */
-            position: relative; /* يجب أن تكون الخلايا ذات موضع نسبي */
-            z-index: 2; /* نجعلها أعلى من تأثير التلاشي (::after) */
+            /* ** رفع عمق النص ليكون فوق تأثير التلاشي ** */
+            position: relative; 
+            z-index: 2; 
         }
         
         /* Language Switcher Styling */
@@ -212,23 +213,21 @@
     height: 100%;
     opacity: 0; /* يبدأ شفافاً بالكامل */
     pointer-events: none;
-    /* ** التعديل الثالث: جعل التلاشي خلف كل النصوص ** */
     z-index: 0; /* يجب أن يجلس خلف النصوص (z-index: 2) */
     transition: opacity 0.3s ease; /* انتقال سلس لظهور اللون عند التمرير */
 }
 
-/* تطبيق التدرج اللوني عند التمرير (Hover) */
+/* تطبيق التدرج اللوني عند التمرير (Hover) - الإعداد الافتراضي للديسكتوب (الأكثر حدة) */
 .table-row-item:hover::after {
     opacity: 1; /* يظهر العنصر الزائف عند التمرير */
     
-    /* استخدام متغير اللون (يتم تعريفه في HTML) */
     background-image: linear-gradient(to right,
-        #111111 0%, /* تلاشي من الخلفية (أسود) */
-        transparent 5%, /* شفاف تماماً عند 5% (بداية الوضوح) */
-        var(--hover-color) 20%, /* اللون المخصص يظهر في المنتصف (20% - 80%) */
+        #111111 0%,
+        transparent 5%, /* نقاط توقف حادة (للشاشات العريضة) */
+        var(--hover-color) 20%, 
         var(--hover-color) 80%,
-        transparent 95%, /* شفاف تماماً عند 95% (نهاية الوضوح) */
-        #111111 100% /* تلاشي إلى الخلفية (أسود) */
+        transparent 95%, 
+        #111111 100%
     );
 }
 /* ******************************************************************************** */
@@ -243,6 +242,19 @@
                 padding-bottom: 1.5rem !important;
                 gap: 0.5rem !important;
             }
+
+            /* ** Mobile Specific Gradient Fix ** */
+            .table-row-item:hover::after {
+                background-image: linear-gradient(to right,
+                    #111111 0%,
+                    transparent 10%, /* نقاط توقف أوسع (للشاشات الضيقة) */
+                    var(--hover-color) 25%, 
+                    var(--hover-color) 75%,
+                    transparent 90%, 
+                    #111111 100%
+                );
+            }
+            
             .header-row {
                 display: none !important; 
             }
